@@ -1,0 +1,29 @@
+/*
+ * Handwritten token CSS entrypoint.
+ *
+ * Edit this file for base layers and design-system global styles.
+ * Do not edit packages/tokens/dist/global.css; it is compiled from this file.
+ * Do not edit packages/tokens/dist/themes.css; it is generated from Figma tokens.
+ */
+
+@import './themes.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .font-public-sans-pro {
+    font-family: 'Public Sans', 'Public Sans Pro', system-ui, sans-serif;
+  }
+}

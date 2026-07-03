@@ -1,0 +1,113 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Imagery" />
+
+# Imagery
+
+An image helps us learn, grabs attention, explains tough concepts, and inspires audiences.
+
+## Summary
+
+- Keep image file sizes at or below 200 kb and no greater than 500 kb for better page loading times and performance.
+- Optimise files by running them through services like [TinyJPG](https://tinyjpg.com/) or [TinyPNG](https://tinypng.com/).
+- Keep image resolution at 72 ppi for web and mobile.
+- Use the correct file type for the intended use or space.
+- Use descriptive keywords in file names to help boost your website's SEO rankings.
+
+---
+
+## Ratios and images
+
+export const RatioImage = ({ src, aspectRatio, width = 360, rounded = false }) => (
+  <div
+    style={{
+      width,
+      aspectRatio,
+      overflow: 'hidden',
+      borderRadius: rounded ? '50%' : 8,
+      marginBottom: 48,
+      background: 'var(--default-subtle)',
+    }}
+  >
+    <img
+      src={src}
+      alt="Sample imagery at documented aspect ratio"
+      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+    />
+  </div>
+);
+
+export const RatioRow = ({ children }) => (
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, marginBottom: 48 }}>{children}</div>
+);
+
+### 1:1 Square
+
+Most commonly sized 1080 × 1080px. Square images are great for in-text images, sidebar ads, and Instagram.
+
+<RatioRow>
+  <RatioImage src="images/ratio-1-to-1.png" aspectRatio="1 / 1" width={120} />
+  <RatioImage src="images/ratio-1-to-1.png" aspectRatio="1 / 1" width={120} rounded />
+</RatioRow>
+
+### 2:1 Rectangle
+
+Often used as an image thumbnail in a card.
+
+<RatioImage src="images/ratio-2-to-1.png" aspectRatio="2 / 1" width={360} />
+
+### 3:2 Rectangle
+
+Often used in print or on phones, sized 1080 × 720px. Common on product pages, blog posts, and content pages.
+
+<RatioImage src="images/ratio-3-to-2.png" aspectRatio="3 / 2" width={360} />
+
+### 4:3 Rectangle
+
+Slightly taller than 3:2. The 4:3 rectangle was the most common ratio for screen sizes before widescreen monitors became popular. Typically used in 640 × 480px images for smaller screen sizes or placements, or up to 2048 × 1536px for full-screen takeovers.
+
+<RatioImage src="images/ratio-4-to-3.png" aspectRatio="4 / 3" width={360} />
+
+### 1.91:1 Landscape
+
+Typically used and supported throughout different social media platforms. Landscape ratios are also popular for featured images in blog posts and other content. Recommended minimum of 1080px in width.
+
+---
+
+## Hero image and full-width image sizes
+
+### Desktop
+
+Your hero image will likely be a ratio of **16:9** if you intend on using the entire height of the browser. In this ratio, image width will likely range from 1500px (absolute minimum) to 2560px (maximum recommended). We recommend **1920px** wide.
+
+### Mobile
+
+Most responsive websites resize hero images to fit the device they are shown on. However, if you have very large images or are using videos in hero sections, specify alternate images for smaller screens. This can help page load time on devices using cellular data and save bandwidth.
+
+- Vertical images — **4:5** ratio, 1080 × 1350px
+- Square images — **1:1** ratio, 1080 × 1080px
+- Rectangle images — **1.91:1** ratio, 1080 × 608px
+
+---
+
+## What image file type should I use? (PNG vs JPEG)
+
+**JPEG** — Highly recommended, and the best option for photographs or stock footage throughout your website. Lightest in file size; a lossy file type, which means it will always lose information the more you edit the image.
+
+**PNG** — Recommended for icons, flat colored graphics, and logos because it supports transparency, but it has larger file sizes.
+
+**SVG** — Scalable vector graphics remain clear at any size because they are drawn mathematically. They can have larger file sizes, can be animated, support transparency, and are a lossless file format.
+
+---
+
+## Image names and ALT tags
+
+Choosing the right file name for images can help your page's SEO ranking in image search results. Name files with relevant, descriptive keywords, and do not use underscores.
+
+<img
+  src="images/imagery-do-dont.png"
+  alt="Do use descriptive hyphenated file names; do not use underscores or generic names like image-1"
+  style={{ width: '100%', maxWidth: 720, display: 'block', margin: '0 auto 24px' }}
+/>
+
+Good alt tags help web crawlers understand what your images are about while they index your site. They are also used by screen readers to describe images to visually impaired users. Alt text should describe the image without keyword stuffing — write it the way you would describe the image to someone who cannot see it.

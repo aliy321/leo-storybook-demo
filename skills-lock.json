@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "shadcn-ui": {
+      "source": "google-labs-code/stitch-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/stitch-build/skills/shadcn-ui/SKILL.md",
+      "computedHash": "dadbca54d35a33fe73e40018611af2179689305bf6da812ab2643987fefd9da3"
+    },
+    "stencil-atomic-design-system": {
+      "source": "corlab-tech/skills",
+      "sourceType": "github",
+      "skillPath": "stencil-atomic-design-system/SKILL.md",
+      "computedHash": "f9bac806db4ffe023bf66da6f52e8a7c1993b4fbfe494e702b57050807b40fdf"
+    },
+    "stenciljs-component-development": {
+      "source": "corlab-tech/skills",
+      "sourceType": "github",
+      "skillPath": "stenciljs-component-development/SKILL.md",
+      "computedHash": "2195842f8a9d800dcfccdc2c7b124f3f741e45b7cb5a8a9760c3858ed349be8b"
+    }
+  }
+}

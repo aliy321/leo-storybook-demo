@@ -1,0 +1,39 @@
+{
+  "$description": "Role-based semantic color roles (primary API). Figma source keys are resolved at build time; legacy names are emitted as deprecated aliases. Components should use semantic names only (bg-primary, text-foreground, etc.).",
+  "roles": {
+    "background": "canvas",
+    "foreground": "inverse-active",
+    "primary": "primary",
+    "primary-foreground": "inverse",
+    "secondary": "inverse-active",
+    "secondary-foreground": "inverse",
+    "muted": "disabled-muted",
+    "muted-foreground": "disabled",
+    "accent": "default",
+    "accent-foreground": "paragraph",
+    "destructive": "error",
+    "destructive-foreground": "inverse",
+    "border": "inverse-active",
+    "input": "inverse-active",
+    "ring": "active",
+    "card": "inverse",
+    "card-foreground": "inverse-active"
+  },
+  "legacyAliases": {
+    "canvas": "background",
+    "surface": "card",
+    "inverse": "primary-foreground",
+    "inverse-muted": "muted",
+    "inverse-active": "foreground",
+    "inverse-active-muted": "card-foreground",
+    "default": "accent",
+    "default-subtle": "muted",
+    "default-strong": "muted-foreground",
+    "disabled-muted": "muted",
+    "disabled": "muted-foreground",
+    "paragraph": "accent-foreground",
+    "heading": "foreground",
+    "error": "destructive",
+    "active": "ring"
+  }
+}

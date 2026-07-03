@@ -1,0 +1,130 @@
+/* Shadow DOM encapsulation: import compiled Tailwind + theme vars so utilities resolve */
+@import '../../../../tokens/dist/global.css';
+
+:host {
+  display: inline-flex;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  border-style: solid;
+  cursor: pointer;
+}
+
+button:not(.button--icon) {
+  width: 100%;
+}
+
+button.button--icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--ring, var(--active, #d52b1e));
+  outline-offset: 2px;
+}
+
+.button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  vertical-align: text-bottom;
+}
+
+.button-icon.leo-icon--size-16 {
+  font-size: 1rem;
+}
+
+.button-icon svg {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  font-size: inherit;
+}
+
+.button-icon:not(.button-icon--color) svg,
+.button-icon:not(.button-icon--color) path,
+.button-icon:not(.button-icon--color) g,
+.button-icon:not(.button-icon--color) defs,
+.button-icon:not(.button-icon--color) clipPath,
+.button-icon:not(.button-icon--color) rect {
+  fill: currentColor !important;
+  color: inherit;
+}
+
+.button-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.button-ripple {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-mask-image: -webkit-radial-gradient(circle, #fff, #000);
+}
+
+.button-ripple--on-dark {
+  color: rgb(255 255 255 / 0.45);
+}
+
+.button-ripple--on-light {
+  color: rgb(var(--primary-rgb) / 0.2);
+}
+
+.button-ripple .ripple {
+  position: absolute;
+  border-radius: 100%;
+  background: currentColor;
+  opacity: 0.2;
+  width: 0;
+  height: 0;
+  transform: scale(0);
+  transition:
+    transform 0.4s ease-out,
+    opacity 0.4s ease-out;
+  pointer-events: none;
+  user-select: none;
+}
+
+.button-ripple .ripple.held {
+  opacity: 0.4;
+  transform: scale(1);
+}
+
+.button-ripple .ripple.done {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-ripple .ripple {
+    transition: none;
+  }
+}

@@ -1,0 +1,1338 @@
+{
+  "mobile": {
+    "typography": {
+      "font-sizes": {
+        "display-lg": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 40,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 36,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 32,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 28,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 24,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 12,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 10,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 10,
+          "$type": "dimension"
+        }
+      },
+      "font-weights": {
+        "display-lg": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 600,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 400,
+          "$type": "dimension"
+        }
+      },
+      "letter-spacings": {
+        "display-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 0,
+          "$type": "dimension"
+        }
+      },
+      "line-heights": {
+        "display-lg": {
+          "$value": 58,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 44,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 38,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 34,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 30,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 24,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 14,
+          "$type": "dimension"
+        }
+      },
+      "font-families": {
+        "display-lg": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "display": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "heading-2xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-md": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-2xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body--strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm-strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "overline": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        }
+      }
+    }
+  },
+  "tablet": {
+    "typography": {
+      "font-sizes": {
+        "display-lg": {
+          "$value": 56,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 40,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 36,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 32,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 28,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 22,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 12,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 10,
+          "$type": "dimension"
+        }
+      },
+      "font-weights": {
+        "display-lg": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 600,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 400,
+          "$type": "dimension"
+        }
+      },
+      "letter-spacings": {
+        "display-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 0,
+          "$type": "dimension"
+        }
+      },
+      "line-heights": {
+        "display-lg": {
+          "$value": 68,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 58,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 44,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 40,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 34,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 28,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 24,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 14,
+          "$type": "dimension"
+        }
+      },
+      "font-families": {
+        "display-lg": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "display": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "heading-2xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-md": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-2xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body--strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm-strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "overline": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        }
+      }
+    }
+  },
+  "desktop": {
+    "typography": {
+      "font-sizes": {
+        "display-lg": {
+          "$value": 64,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 56,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 40,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 36,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 32,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 28,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 24,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 12,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 12,
+          "$type": "dimension"
+        }
+      },
+      "font-weights": {
+        "display-lg": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 600,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 400,
+          "$type": "dimension"
+        }
+      },
+      "letter-spacings": {
+        "display-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 0,
+          "$type": "dimension"
+        }
+      },
+      "line-heights": {
+        "display-lg": {
+          "$value": 78,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 68,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 58,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 44,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 40,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 30,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 26,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 22,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 18,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 18,
+          "$type": "dimension"
+        }
+      },
+      "font-families": {
+        "display-lg": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "display": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "heading-2xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-md": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-2xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body--strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm-strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "overline": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        }
+      }
+    }
+  },
+  "desktop-hd": {
+    "typography": {
+      "font-sizes": {
+        "display-lg": {
+          "$value": 72,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 64,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 56,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 40,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 36,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 28,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 24,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 16,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 14,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 12,
+          "$type": "dimension"
+        }
+      },
+      "font-weights": {
+        "display-lg": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 800,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 600,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 700,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 400,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 400,
+          "$type": "dimension"
+        }
+      },
+      "letter-spacings": {
+        "display-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 0,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 0,
+          "$type": "dimension"
+        }
+      },
+      "line-heights": {
+        "display-lg": {
+          "$value": 88,
+          "$type": "dimension"
+        },
+        "display": {
+          "$value": 78,
+          "$type": "dimension"
+        },
+        "heading-2xl": {
+          "$value": 68,
+          "$type": "dimension"
+        },
+        "heading-xl": {
+          "$value": 58,
+          "$type": "dimension"
+        },
+        "heading-lg": {
+          "$value": 48,
+          "$type": "dimension"
+        },
+        "heading-md": {
+          "$value": 44,
+          "$type": "dimension"
+        },
+        "heading-sm": {
+          "$value": 34,
+          "$type": "dimension"
+        },
+        "heading-xs": {
+          "$value": 28,
+          "$type": "dimension"
+        },
+        "heading-2xs": {
+          "$value": 24,
+          "$type": "dimension"
+        },
+        "body": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-strong": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-sm": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "body-sm-strong": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "footnote-lg": {
+          "$value": 22,
+          "$type": "dimension"
+        },
+        "footnote": {
+          "$value": 20,
+          "$type": "dimension"
+        },
+        "overline": {
+          "$value": 18,
+          "$type": "dimension"
+        }
+      },
+      "font-families": {
+        "display-lg": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "display": {
+          "$value": "Mr Banks",
+          "$type": "string"
+        },
+        "heading-2xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xl": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-md": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "heading-2xs": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body--strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "body-sm-strong": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote-lg": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "footnote": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        },
+        "overline": {
+          "$value": "Public Sans Pro",
+          "$type": "string"
+        }
+      }
+    }
+  }
+}

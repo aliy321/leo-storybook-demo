@@ -1,0 +1,86 @@
+import * as React from 'react';
+import { Pressable, View, Text, type StyleProp, type ViewStyle } from 'react-native';
+import {
+  {{camelCase name}}ClassName,
+  cn,
+  type {{pascalCase name}}Options,
+  type {{pascalCase name}}Variant,
+} from '@leo/ui/{{name}}';
+
+export interface {{pascalCase name}}Props extends {{pascalCase name}}Options {
+  onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
+  accessibilityLabel?: string;
+  children?: React.ReactNode;
+}
+
+function getPressFeedbackStyle(pressed: boolean): ViewStyle | undefined {
+  if (!pressed) {
+    return undefined;
+  }
+
+  return {
+    opacity: 0.96,
+    transform: [{ scale: 0.995 }],
+  };
+}
+
+export function {{pascalCase name}}({
+  variant = 'default',
+  disabled = false,
+  onPress,
+  className = '',
+  style,
+  accessibilityLabel,
+  children,
+}: {{pascalCase name}}Props) {
+  const resolvedVariant = variant ?? 'default';
+  const isInteractive = Boolean(onPress) && !disabled;
+  const rootClassName = cn(
+    'self-start',
+    {{camelCase name}}ClassName({
+      variant: resolvedVariant,
+      disabled,
+    }),
+    className,
+  );
+
+  if (isInteractive) {
+    return (
+      <Pressable
+        disabled={disabled}
+        onPress={onPress}
+        {...({ className: rootClassName } as object)}
+        style={({ pressed }) => [
+          !disabled ? getPressFeedbackStyle(pressed) : undefined,
+          style,
+        ]}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel}
+        accessibilityState=\{{ disabled }}
+      >
+        {children ?? (
+          <Text className="text-foreground">{{pascalCase name}} content</Text>
+        )}
+      </Pressable>
+    );
+  }
+
+  return (
+    <View
+      {...({ className: rootClassName } as object)}
+      style={style}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState=\{{ disabled }}
+    >
+      {children ?? (
+        <Text className="text-foreground">{{pascalCase name}} content</Text>
+      )}
+    </View>
+  );
+}
+
+{{pascalCase name}}.displayName = '{{pascalCase name}}';
+
+export type { {{pascalCase name}}Variant };
+export default {{pascalCase name}};

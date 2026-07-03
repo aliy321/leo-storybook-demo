@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Schema for build.js to generate NativeWind-compatible Tailwind config and Theme component",
+
+  "tokenFiles": {
+    "primitives": "primitives.tokens.json",
+    "modes": "modes.tokens.json",
+    "typography": "typography.tokens.json",
+    "grids": "grids.tokens.json",
+    "shadows": "shadows.tokens.json"
+  },
+
+  "output": {
+    "tailwindConfig": "../rn/tailwind.config.js",
+    "themeComponent": "../rn/components/Theme.js",
+    "themeContext": "../rn/context/ThemeContext.js",
+    "typography": "../rn/data/typography.js",
+    "themes": "../rn/data/themes.js",
+    "colors": "../rn/data/colors.js"
+  },
+
+  "keyCleanup": {
+    "primitives": {
+      "fontWeight": ["font-weight-", "font-"],
+      "fontSize": ["font-size-"],
+      "lineHeight": ["line-height-"],
+      "letterSpacing": ["letter-space-", "letter-spacing-"],
+      "spacing": ["space-", "spacing-"],
+      "borderRadius": ["radius-"],
+      "borderWidth": ["border-width-"],
+      "opacity": ["opacity-"]
+    },
+    "typography": {
+      "fontWeight": ["font-weight-", "font-"],
+      "letterSpacing": ["letter-space-", "letter-spacing-"],
+      "lineHeight": ["line-height-"],
+      "fontSize": ["font-size-"],
+      "fontFamily": ["font-family-"]
+    }
+  },
+
+  "notes": {
+    "folderStructure": "Output files are organized into feature folders: data/ (auto-generated tokens), components/ (UI components), hooks/ (custom hooks), context/ (context providers), shadows/ (shadow utilities).",
+    "tailwindConfig": "Contains merged colors (semantic CSS variables + primitive hex values), spacing/dimensions with px units, and semantic shadow CSS variables. Grid config is exported as a separate module.exports.gridConfig.",
+    "colorsFormat": "All colors are merged into the 'colors' key. Semantic colors use CSS variables (e.g., var(--bg-primary)), primitive colors are static hex values (e.g., #d52b1e).",
+    "unitsRequired": "Spacing, borderRadius, borderWidth, fontSize, and letterSpacing values include 'px' units for NativeWind compatibility. Exception: '0' values remain unitless.",
+    "typography": "Contains text-style specific typography values for all breakpoints. Used by LeoText component for responsive typography via inline styles.",
+    "numericRounding": "Numeric values (especially line heights) are rounded to 1 decimal place to avoid floating-point precision issues (e.g., 1.2000000476837158 -> 1.2).",
+    "lineHeightAsNumber": "Primitive line heights are output as numbers (not strings) in tailwind.config.js to ensure unitless line-height values. String values like '1' become '1px' in NativeWind, but number values like 1 remain unitless multipliers.",
+    "shadowCssVariables": "Shadows use CSS variables (e.g., var(--shadow-sm)) that are set by the Theme component based on colorScheme. This allows leo-shadow-sm to automatically switch between light and dark values.",
+    "gridConfig": "Grid system values are exported as module.exports.gridConfig since 'grid' is not a valid Tailwind theme key. Access via: const { gridConfig } = require('./tailwind.config');"
+  }
+}

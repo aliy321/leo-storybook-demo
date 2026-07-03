@@ -1,0 +1,26 @@
+{
+  "name": "@leo/web",
+  "version": "3.0.0",
+  "private": true,
+  "description": "All web components — single Stencil build",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "files": ["dist/", "loader/"],
+  "scripts": {
+    "build": "stencil build",
+    "dev": "node scripts/dev-with-deps.mjs",
+    "typecheck": "tsc -p tsconfig.check.json --noEmit"
+  },
+  "dependencies": {
+    "@leo/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@stencil/core": "4.23.0",
+    "typescript": "~5.9.2"
+  }
+}

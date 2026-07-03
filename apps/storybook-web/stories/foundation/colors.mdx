@@ -1,0 +1,253 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Colors" />
+
+# Colors
+
+LEO v3 uses **semantic color tokens** — role-based names like `primary`, `foreground`, and `muted` instead of visual descriptions like `canvas`, `inverse`, or `inverse-active`. The same hex values from Figma v2 are preserved; only the naming architecture changed.
+
+Toggle **Brand** and **Scheme** in the Storybook toolbar to preview how tokens adapt across `default`, `agency`, and `takaful` brands in light and dark modes.
+
+## Two independent axes
+
+| Axis | Attribute | Values | What it controls |
+|------|-----------|--------|------------------|
+| **Brand** | `data-brand` (web) / Theme name (native) | `default`, `agency`, `takaful` | Which brand palette — primary red vs agency blue vs takaful orange |
+| **Color scheme** | `data-color-scheme` (web) / color scheme (native) | `light`, `dark` | Light or dark appearance within a brand |
+
+```html
+<!-- Web: set both on <html> -->
+<html data-brand="agency" data-color-scheme="dark">
+```
+
+Semantic tokens **auto-switch** when either axis changes. There is no manual "invert" toggle — scheme is not a user-facing action, it is a context attribute.
+
+### About "inverse" (legacy)
+
+In v2, names like `inverse`, `inverse-active`, and `inverse-muted` described **contrast relationships** — text on colored backgrounds, or colors that flip between light and dark schemes. They were **not** a "invert theme" button.
+
+In v3, use semantic roles instead:
+
+- `inverse-active` → **`foreground`** (default body text)
+- `inverse` → **`primary-foreground`** (text on primary/colored backgrounds)
+- `inverse-muted` → **`muted`** (subtle surfaces)
+
+Color scheme switching is handled by `data-color-scheme="light|dark"`. Tokens resolve to the correct value per scheme automatically.
+
+---
+
+## How to read semantic token names
+
+Semantic tokens describe **what the color is for**, not what it looks like:
+
+| Token | Role | Tailwind examples |
+|-------|------|-------------------|
+| `background` | Page / app shell surface | `bg-background` |
+| `foreground` | Default text on background | `text-foreground` |
+| `primary` | Brand CTA, main actions | `bg-primary`, `text-primary` |
+| `primary-foreground` | Text on primary surfaces | `text-primary-foreground` |
+| `secondary` | Secondary actions | `bg-secondary` |
+| `secondary-foreground` | Text on secondary surfaces | `text-secondary-foreground` |
+| `muted` | Subtle / de-emphasized surfaces | `bg-muted` |
+| `muted-foreground` | De-emphasized text | `text-muted-foreground` |
+| `accent` | Hover / highlight surfaces | `bg-accent` |
+| `accent-foreground` | Text on accent surfaces | `text-accent-foreground` |
+| `destructive` | Error / danger actions | `bg-destructive` |
+| `destructive-foreground` | Text on destructive surfaces | `text-destructive-foreground` |
+| `border` | Default borders | `border-border` |
+| `input` | Form field borders | `border-input` |
+| `ring` | Focus rings | `ring-ring` |
+| `card` | Elevated surfaces (cards, modals) | `bg-card` |
+| `card-foreground` | Text on card surfaces | `text-card-foreground` |
+
+```tsx
+// All utilities bind to the same CSS variable
+<View className="bg-primary" />
+<Text className="text-primary" />
+<View className="border border-primary" />
+```
+
+---
+
+## Core semantic palette
+
+Values below reflect the active brand and scheme from the Storybook toolbar.
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
+  {[
+    ['background', 'Page surface'],
+    ['foreground', 'Default text'],
+    ['primary', 'Brand / CTAs'],
+    ['primary-foreground', 'Text on primary'],
+    ['secondary', 'Secondary actions'],
+    ['secondary-foreground', 'Text on secondary'],
+    ['muted', 'Subtle surfaces'],
+    ['muted-foreground', 'De-emphasized text'],
+    ['accent', 'Hover / highlight'],
+    ['accent-foreground', 'Text on accent'],
+    ['destructive', 'Danger / error'],
+    ['destructive-foreground', 'Text on destructive'],
+    ['border', 'Borders'],
+    ['input', 'Input borders'],
+    ['ring', 'Focus ring'],
+    ['card', 'Cards, modals'],
+    ['card-foreground', 'Text on cards'],
+  ].map(([token, desc]) => (
+    <div key={token} style={{ width: 110 }}>
+      <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: `var(--${token})`, border: '1px solid var(--border)' }} />
+      <strong style={{ fontSize: 11, color: 'var(--foreground)' }}>{token}</strong>
+      <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{desc}</div>
+    </div>
+  ))}
+</div>
+
+### Usage examples
+
+```tsx
+<View className="bg-primary p-leo-16">
+  <Text className="text-primary-foreground">Primary button surface</Text>
+</View>
+
+<View className="bg-card border border-border p-leo-16">
+  <Text className="text-card-foreground">Card content</Text>
+</View>
+
+<View className="bg-destructive/10 border border-destructive p-leo-16">
+  <Text className="text-destructive">Error state</Text>
+</View>
+```
+
+---
+
+## Extended tokens
+
+These Figma tokens remain available for status, typography hierarchy, and interactive states. Prefer semantic tokens for standard UI surfaces.
+
+### Status colors
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
+  {[
+    ['info', 'Info state'],
+    ['info-muted', 'Info background'],
+    ['error', 'Error (alias → destructive)'],
+    ['error-muted', 'Error background'],
+    ['warning', 'Warning state'],
+    ['warning-muted', 'Warning background'],
+    ['success', 'Success state'],
+    ['success-muted', 'Success background'],
+  ].map(([token, desc]) => (
+    <div key={token} style={{ width: 110 }}>
+      <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: `var(--${token})`, border: token.includes('muted') ? '1px solid var(--border)' : undefined }} />
+      <strong style={{ fontSize: 11, color: 'var(--foreground)' }}>{token}</strong>
+      <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{desc}</div>
+    </div>
+  ))}
+</div>
+
+### Typography colors
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
+  {[
+    ['display', 'Large headlines'],
+    ['heading', 'Section titles (alias → foreground)'],
+    ['paragraph', 'Body (alias → accent-foreground)'],
+    ['footnote', 'Small text'],
+  ].map(([token, desc]) => (
+    <div key={token} style={{ width: 110 }}>
+      <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: 'var(--card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ color: `var(--${token})`, fontWeight: 700, fontSize: 14 }}>Aa</span>
+      </div>
+      <strong style={{ fontSize: 11, color: 'var(--foreground)' }}>{token}</strong>
+      <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{desc}</div>
+    </div>
+  ))}
+</div>
+
+### Interactive states
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
+  {[
+    ['active', 'Active (alias → ring)'],
+    ['hover', 'Hover state'],
+    ['pressed', 'Pressed state'],
+    ['focused', 'Focus ring'],
+    ['selected', 'Selected item'],
+    ['disabled', 'Disabled (alias → muted-foreground)'],
+  ].map(([token, desc]) => (
+    <div key={token} style={{ width: 110 }}>
+      <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: `var(--${token})`, border: '1px solid var(--border)' }} />
+      <strong style={{ fontSize: 11, color: 'var(--foreground)' }}>{token}</strong>
+      <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{desc}</div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Migration: v2 legacy → v3 semantic
+
+Deprecated legacy names still resolve (backward compat) but **should not be used in new code**.
+
+| Legacy (v2) | Semantic (v3) | When to use |
+|-------------|-------------|-------------|
+| `canvas` | `background` | Page / app shell background |
+| `surface` | `card` | Cards, modals, elevated panels |
+| `inverse-active` | `foreground` | Default body text |
+| `inverse` | `primary-foreground` | Text on primary or colored backgrounds |
+| `inverse-muted` | `muted` | Subtle neutral surfaces |
+| `default` | `accent` | Hover states, highlight surfaces |
+| `default-subtle` | `muted` | Lighter neutral fills |
+| `default-strong` | `muted-foreground` | Stronger de-emphasized text |
+| `disabled-muted` | `muted` | Disabled backgrounds |
+| `disabled` | `muted-foreground` | Disabled text |
+| `paragraph` | `accent-foreground` | Secondary body text |
+| `heading` | `foreground` | Headings (same as default text in light) |
+| `error` | `destructive` | Error actions and text |
+| `active` | `ring` | Focus ring color |
+| `inverse-active` (on inverse bg) | `secondary` | Secondary button surfaces |
+
+**Not migrated** — keep using these extended tokens: `display`, `footnote`, `info`, `warning`, `success`, `note`, `featured`, `hover`, `pressed`, `selected`, and their `-muted` variants.
+
+---
+
+## Primitive colors
+
+Primitive colors are **static hex values** that do not change with theme. Use them for illustrations, charts, and custom graphics — not for standard UI surfaces.
+
+> Prefer semantic colors for UI. Primitives do not adapt to light/dark modes or brands.
+
+<table>
+  <thead>
+    <tr><th>Family</th><th>Scale</th><th>Example class</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Red</td><td>50 – 700</td><td><code>bg-red-500</code></td></tr>
+    <tr><td>Dark red</td><td>50 – 700</td><td><code>bg-dark-red-500</code></td></tr>
+    <tr><td>Blue</td><td>50 – 700</td><td><code>bg-blue-100</code></td></tr>
+    <tr><td>Dark blue</td><td>50 – 700</td><td><code>bg-dark-blue-500</code></td></tr>
+    <tr><td>Green</td><td>50 – 700</td><td><code>bg-green-500</code></td></tr>
+    <tr><td>Orange</td><td>50 – 700</td><td><code>bg-orange-500</code></td></tr>
+    <tr><td>Yellow</td><td>50 – 700</td><td><code>bg-yellow-500</code></td></tr>
+    <tr><td>Brown</td><td>50 – 700</td><td><code>bg-brown-500</code></td></tr>
+    <tr><td>Grey</td><td>20 – 800</td><td><code>bg-grey-200</code></td></tr>
+    <tr><td>Neutral</td><td>white, black</td><td><code>bg-white</code>, <code>bg-black</code></td></tr>
+  </tbody>
+</table>
+
+---
+
+## Best practices
+
+### Do
+
+- Use semantic tokens for all standard UI (`bg-primary`, `text-foreground`, `border-border`)
+- Pair muted backgrounds with their semantic text (`bg-muted` + `text-muted-foreground`)
+- Test across all three brands and both schemes using the Storybook toolbar
+- Use primitive colors only for non-UI graphics
+
+### Don't
+
+- Don't use legacy names (`canvas`, `inverse`, `inverse-active`) in new code
+- Don't treat "inverse" as a theme toggle — use `data-color-scheme` instead
+- Don't hardcode hex when a semantic token exists
+- Don't use primitive palette names for theme-aware surfaces

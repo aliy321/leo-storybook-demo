@@ -1,0 +1,166 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Design token" />
+
+# Design tokens
+
+Design tokens are the shared visual values behind every component — color, typography, spacing, elevation, and more. They are compiled from Figma JSON into platform outputs:
+
+- **Web:** `@leo/tokens/css` → `global.css` + generated `themes.css`
+- **Native:** `@leo/tokens/rn` → theme data, `Theme` provider, and Tailwind preset for NativeWind
+
+Using tokens keeps products consistent and lets the design system update visuals in one place.
+
+## Table of contents
+
+- [How to read token names](#how-to-read-token-names)
+- [Web setup](#web-setup)
+- [Native setup](#native-setup)
+- [Theme switching](#theme-switching)
+- [Property references](#property-references)
+- [Best practices](#best-practices)
+
+> **Related:** [Colors](/docs/foundation-colors--docs) · [Typography](/docs/foundation-typography-overview--docs) · [Spacing](/docs/foundation-spacing--docs) · [Shadows](/docs/foundation-shadows--docs)
+
+---
+
+## How to read token names
+
+Token names describe **how** a value should be used, not what it looks like. Semantic tokens like `primary` or `surface` map to CSS variables that change per brand and color scheme.
+
+| Layer | Example | Meaning |
+| ----- | ------- | ------- |
+| Semantic color | `bg-primary`, `text-heading` | Role-based; adapts to brand and scheme |
+| Primitive color | `bg-red-500`, `text-grey-700` | Fixed hex; for illustrations and graphics |
+| Spacing | `p-leo-16`, `gap-leo-8` | Token scale values in pixels |
+| Typography | `text-14`, `font-bold` | Size and weight from the type scale |
+
+On web, import tokens once and set brand/scheme on the document root. On native, wrap the app with `Theme` from `@leo/tokens/rn`.
+
+Use the **Brand** and **Scheme** toolbar in Storybook to preview token sets.
+
+---
+
+## Web setup
+
+Import global tokens at the app entry:
+
+```css
+@import '@leo/tokens/css';
+```
+
+Apply brand and color scheme on the document root:
+
+```html
+<html data-brand="default" data-color-scheme="light">
+```
+
+Use semantic utilities in components:
+
+```html
+<div class="bg-surface p-leo-16 rounded-8">
+  <h2 class="text-heading text-18 font-bold">Hello</h2>
+  <p class="text-paragraph text-14">Token-backed styling</p>
+</div>
+```
+
+---
+
+## Native setup
+
+Wrap the root layout with `Theme`. It applies brand CSS variables, handles font loading, and coordinates with NativeWind.
+
+```tsx
+import { Theme } from '@leo/tokens/rn';
+
+export default function RootLayout() {
+  return (
+    <Theme name="default" colorScheme="light">
+      {/* app content */}
+    </Theme>
+  );
+}
+```
+
+Add the token Tailwind preset to `tailwind.config.js`:
+
+```js
+module.exports = {
+  presets: [require('nativewind/preset'), require('@leo/tokens/rn/tailwind.config.js')],
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './node_modules/@leo/**/src/**/*.{js,jsx,ts,tsx}'],
+};
+```
+
+Use the same utility names as web (`bg-primary`, `text-14`, `p-leo-16`, etc.) via NativeWind `className`.
+
+### Font loading
+
+`Theme` loads **Public Sans Pro** and **Mr. Banks** automatically:
+
+| Strategy | When to use | Who loads fonts |
+| -------- | ----------- | --------------- |
+| Expo + `expo-font` | Expo apps | `Theme` via `Font.loadAsync()` |
+| Native asset linking | Bare React Native | Build pipeline (`react-native-asset`) |
+
+Re-run font linking when the tokens package is updated.
+
+---
+
+## Theme switching
+
+### Web
+
+Set attributes on `<html>` or a layout wrapper:
+
+```html
+<html data-brand="agency" data-color-scheme="dark">
+```
+
+Supported brands: `default`, `agency`, `takaful`. Schemes: `light`, `dark`.
+
+### Native
+
+```tsx
+<Theme
+  name="default | agency | takaful"
+  colorScheme="light | dark"  // optional; falls back to system
+  loadingComponent={<MyLoader />}  // optional
+>
+  {children}
+</Theme>
+```
+
+| Prop | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `name` | `'default' \| 'agency' \| 'takaful'` | `'default'` | Brand theme |
+| `colorScheme` | `'light' \| 'dark'` | system | Override color scheme |
+| `loadingComponent` | `ReactNode` | `ActivityIndicator` | Custom loading UI while fonts load |
+| `style` | `ViewStyle` | — | Additional container styles |
+
+---
+
+## Property references
+
+| Property | Utilities | Notes |
+| -------- | --------- | ----- |
+| Color | `bg-*`, `text-*`, `border-*` | Semantic roles; see [Colors](/docs/foundation-colors--docs) |
+| Typography | `text-*`, `font-*`, `leading-*`, `tracking-*` | See [Typography](/docs/foundation-typography-overview--docs) |
+| Spacing | `p-*`, `m-*`, `gap-*` | Token scale `leo-2` … `leo-64`; see [Spacing](/docs/foundation-spacing--docs) |
+| Radius / border | `rounded-*`, `border-*` | See [Spacing](/docs/foundation-spacing--docs) |
+| Elevation | `shadow-*` | Theme-aware; see [Shadows](/docs/foundation-shadows--docs) |
+
+---
+
+## Best practices
+
+### Do
+
+- Use semantic tokens (`bg-primary`, `text-heading`) so brand and scheme updates propagate automatically
+- Set `data-brand` / `data-color-scheme` (web) or `Theme` (native) at the app root
+- Compose screens from documented components that already consume tokens
+
+### Don't
+
+- Don't hardcode hex values for UI surfaces — use semantic or primitive tokens intentionally
+- Don't bypass the token pipeline with arbitrary pixel values outside the scale
+- Don't duplicate token values in product apps; request changes in the design system instead

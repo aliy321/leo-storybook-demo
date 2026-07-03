@@ -1,0 +1,106 @@
+{
+  "mobile": {
+    "columns": {
+      "$value": 4,
+      "$type": "dimension"
+    },
+    "gutters": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "margins": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "container-width": {
+      "$value": 360,
+      "$type": "dimension"
+    },
+    "container-height": {
+      "$value": 800,
+      "$type": "dimension"
+    },
+    "column-widths": {
+      "$value": 60,
+      "$type": "dimension"
+    }
+  },
+  "tablet": {
+    "columns": {
+      "$value": 8,
+      "$type": "dimension"
+    },
+    "gutters": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "margins": {
+      "$value": 48,
+      "$type": "dimension"
+    },
+    "container-width": {
+      "$value": 768,
+      "$type": "dimension"
+    },
+    "container-height": {
+      "$value": 1024,
+      "$type": "dimension"
+    },
+    "column-widths": {
+      "$value": 60,
+      "$type": "dimension"
+    }
+  },
+  "desktop": {
+    "columns": {
+      "$value": 12,
+      "$type": "dimension"
+    },
+    "gutters": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "margins": {
+      "$value": 56,
+      "$type": "dimension"
+    },
+    "container-width": {
+      "$value": 1140,
+      "$type": "dimension"
+    },
+    "container-height": {
+      "$value": 900,
+      "$type": "dimension"
+    },
+    "column-widths": {
+      "$value": 71,
+      "$type": "dimension"
+    }
+  },
+  "desktop-hd": {
+    "columns": {
+      "$value": 12,
+      "$type": "dimension"
+    },
+    "gutters": {
+      "$value": 16,
+      "$type": "dimension"
+    },
+    "margins": {
+      "$value": 56,
+      "$type": "dimension"
+    },
+    "container-width": {
+      "$value": 1440,
+      "$type": "dimension"
+    },
+    "container-height": {
+      "$value": 900,
+      "$type": "dimension"
+    },
+    "column-widths": {
+      "$value": 96,
+      "$type": "dimension"
+    }
+  }
+}

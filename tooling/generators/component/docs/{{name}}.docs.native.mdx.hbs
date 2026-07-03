@@ -1,0 +1,62 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as {{pascalCase name}}Stories from '../native/{{name}}.stories';
+
+<Meta title="Components/{{pascalCase name}}" of={{{storiesBinding}}} />
+
+# {{pascalCase name}}
+
+{{pascalCase name}} component scaffold — update this overview.
+
+**Platform:** React Native (`{{pascalCase name}}` from `@leo/ui/{{name}}` native entry)
+
+**Supported screens:** Mobile, Tablet, Desktop
+
+## Usage
+
+- Use **default** for the primary surface style.
+- Use **outline** when you need a clear boundary without elevation.
+- Pass `onPress` to make the component pressable.
+
+## Variants
+
+<table>
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>default</code></td><td>Card-like surface with subtle shadow</td></tr>
+    <tr><td><code>outline</code></td><td>Bordered surface without shadow</td></tr>
+  </tbody>
+</table>
+
+## Accessibility
+
+- Provide `accessibilityLabel` when content is not descriptive.
+- Disabled state must not trigger actions.
+
+## Implementation
+
+{{pascalCase name}} follows the CVA + semantic token pattern shared with Button and Card. Variants are defined once in `packages/ui/src/{{name}}/core/{{name}}.core.ts`.
+
+## Stories
+
+### Default
+
+<Canvas of={ {{storiesName}}.Default } />
+
+### Variants
+
+<Canvas of={ {{storiesName}}.Variants } />
+
+### Disabled
+
+<Canvas of={ {{storiesName}}.Disabled } />
+
+## API
+
+### React Native (`{{pascalCase name}}`)
+
+<ArgTypes of={{{storiesBinding}}} />

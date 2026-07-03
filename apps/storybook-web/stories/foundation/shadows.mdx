@@ -1,0 +1,113 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Shadows" />
+
+# Shadows
+
+LEO provides **theme-aware** elevation tokens that create depth and visual hierarchy. Shadow values switch automatically between light and dark schemes via CSS variables set by `data-color-scheme` (web) or `Theme` (native).
+
+Toggle **Scheme** in the Storybook toolbar to compare light and dark shadow values.
+
+---
+
+## Shadow levels
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, padding: 24, background: 'var(--canvas)', marginBottom: 24 }}>
+  {['sm', 'md', 'lg', 'xl', '2xl'].map(level => (
+    <div
+      key={level}
+      style={{
+        width: 130,
+        height: 60,
+        borderRadius: 8,
+        background: 'var(--surface)',
+        boxShadow: `var(--shadow-${level})`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontWeight: 600,
+        fontSize: 14,
+        color: 'var(--heading)',
+      }}
+    >
+      {level}
+    </div>
+  ))}
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Light mode</th>
+      <th>Dark mode</th>
+      <th>Use case</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>shadow-sm</code></td>
+      <td>0 4px 4px rgba(0,0,0,0.04)</td>
+      <td>0 4px 4px rgba(140,140,140,0.04)</td>
+      <td>Subtle lift, cards at rest</td>
+    </tr>
+    <tr>
+      <td><code>shadow-md</code></td>
+      <td>0 8px 8px rgba(0,0,0,0.08)</td>
+      <td>0 8px 8px rgba(140,140,140,0.08)</td>
+      <td>Medium elevation, dropdowns</td>
+    </tr>
+    <tr>
+      <td><code>shadow-lg</code></td>
+      <td>0 16px 16px rgba(0,0,0,0.08)</td>
+      <td>0 16px 16px rgba(140,140,140,0.08)</td>
+      <td>High elevation, modals</td>
+    </tr>
+    <tr>
+      <td><code>shadow-xl</code></td>
+      <td>0 16px 16px 4px rgba(0,0,0,0.08)</td>
+      <td>0 16px 16px 4px rgba(140,140,140,0.08)</td>
+      <td>Very high elevation, overlays</td>
+    </tr>
+    <tr>
+      <td><code>shadow-2xl</code></td>
+      <td>0 32px 32px rgba(140,140,140,0.08)</td>
+      <td>0 32px 32px rgba(140,140,140,0.08)</td>
+      <td>Maximum elevation, popovers</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Usage
+
+### Web and native (utility classes)
+
+```tsx
+<View className="bg-surface shadow-sm rounded-8 p-leo-16">
+  <Text>Card at rest</Text>
+</View>
+
+<View className="bg-surface shadow-lg rounded-8 p-leo-16">
+  <Text>Modal panel</Text>
+</View>
+```
+
+Components in `@leo/ui` apply elevation through the same `shadow-*` utilities in their shared `cva` definitions.
+
+---
+
+## Best practices
+
+### Do
+
+- Use theme-aware `shadow-*` classes — values adapt to light and dark automatically
+- Match shadow level to interaction importance (resting cards → `sm`, modals → `lg` or `xl`)
+- Test elevation in both schemes before shipping
+
+### Don't
+
+- Don't hardcode `box-shadow` values in product code
+- Don't mix arbitrary shadow levels on the same screen without hierarchy intent
+- Don't use heavy shadows on flat, non-interactive surfaces

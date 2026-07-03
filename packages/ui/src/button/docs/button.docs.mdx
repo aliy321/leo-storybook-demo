@@ -1,0 +1,130 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from '../web/button.stories';
+
+<Meta title="Components/Button" of={ButtonStories} />
+
+# Button
+
+Button triggers an action. For navigation, use a link.
+
+**Supported screens:** Mobile, Tablet, Desktop
+
+## Usage
+
+- Use **default** for the main action in a section.
+- Use **secondary** for supporting actions.
+- Use **outline** or **ghost** for less prominent actions.
+- Use **destructive** only for actions that remove or damage data.
+- Keep labels short and action-led, like "Save changes" or "Add item".
+
+## Anatomy
+
+- Root: press target, layout, background, border, focus, and disabled state.
+- Text: label color, size, weight, and hover/active text state.
+- Icon slots: optional leading and trailing affordances.
+
+## Variants
+
+<table>
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>default</code></td><td>Primary action</td></tr>
+    <tr><td><code>secondary</code></td><td>Supporting action</td></tr>
+    <tr><td><code>outline</code></td><td>Lower-emphasis action with boundary</td></tr>
+    <tr><td><code>ghost</code></td><td>Low-emphasis inline action</td></tr>
+    <tr><td><code>destructive</code></td><td>Destructive or irreversible action</td></tr>
+    <tr><td><code>link</code></td><td>Button behavior styled like text</td></tr>
+  </tbody>
+</table>
+
+## Sizes
+
+<table>
+  <thead>
+    <tr>
+      <th>Size</th>
+      <th>Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>default</code></td><td>Standard button</td></tr>
+    <tr><td><code>sm</code></td><td>Compact spaces</td></tr>
+    <tr><td><code>lg</code></td><td>Higher emphasis</td></tr>
+    <tr><td><code>icon</code></td><td>Icon-only action with an accessible label</td></tr>
+  </tbody>
+</table>
+
+## Accessibility
+
+- Button text and background colors must meet WCAG contrast requirements.
+- Icon-only buttons must include an accessible label via `aria-label` or visible text.
+- Disabled buttons should not be the only path to complete a task.
+
+## Implementation
+
+Button follows the CVA + Reusables pattern: root and text styles are separate CVA recipes, shared by web and React Native. Recipes use normal Tailwind v3 utilities, while design tokens provide semantic color and theme values.
+
+## Stories
+
+Use **Default** to explore props interactively — change variant, size, icons, and label in the Controls panel and watch a single button update. Gallery stories below are visual reference only; their Controls are disabled so multiple examples on the canvas are not confused with the interactive playground.
+
+### Default
+
+<Canvas of={ButtonStories.Default} />
+
+### Variants
+
+<Canvas of={ButtonStories.Variants} />
+
+### Sizes
+
+<Canvas of={ButtonStories.Sizes} />
+
+### Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+### Icons
+
+Static examples of leading, trailing, both, and icon-only buttons. To try your own icon combinations, use **Default** and set `leftIconType` and/or `rightIconType` in Controls.
+
+<Canvas of={ButtonStories.Icons} />
+
+### Bilingual
+
+Each button shows one locale string — the product picks English or Malay at runtime, not both in one label.
+
+<Canvas of={ButtonStories.Bilingual} />
+
+## API
+
+### Web Component (`leo-button`)
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td><code>variant</code></td><td>Visual style</td><td><code>default | secondary | outline | ghost | destructive | link</code></td><td><code>default</code></td></tr>
+    <tr><td><code>size</code></td><td><code>size</code></td><td>Button size</td><td><code>default | sm | lg | icon</code></td><td><code>default</code></td></tr>
+    <tr><td><code>disabled</code></td><td><code>disabled</code></td><td>Disabled state</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+    <tr><td><code>label</code></td><td><code>label</code></td><td>Button label text</td><td><code>string</code></td><td><code>Button</code></td></tr>
+    <tr><td><code>leftIconType</code></td><td><code>left-icon-type</code></td><td>Leading icon set key (for example <code>add-filled</code>)</td><td><code>string</code></td><td><code>undefined</code></td></tr>
+    <tr><td><code>rightIconType</code></td><td><code>right-icon-type</code></td><td>Trailing icon set key (for example <code>keyboard-arrow-right</code>)</td><td><code>string</code></td><td><code>undefined</code></td></tr>
+  </tbody>
+</table>
+
+Click the button in Storybook **Default** to log a `clicked` action in the Actions panel.
+
+<ArgTypes of={ButtonStories} />

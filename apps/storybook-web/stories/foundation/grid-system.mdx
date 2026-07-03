@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Grid System" />
+
+# Grid system
+
+The LEO grid defines how content aligns and responds across breakpoints. Layout tokens are generated from Figma and exported alongside the Tailwind theme (`gridConfig` in `@leo/tokens/rn`).
+
+Design mobile-first, then add columns as viewport width increases.
+
+---
+
+## Breakpoints
+
+<table>
+  <thead>
+    <tr><th>Name</th><th>Min width</th><th>Columns</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Mobile (default)</td><td>—</td><td>4</td></tr>
+    <tr><td><code>tablet</code></td><td>768px</td><td>8</td></tr>
+    <tr><td><code>desktop</code></td><td>1140px</td><td>12</td></tr>
+    <tr><td><code>desktop-hd</code></td><td>1440px</td><td>12</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Grid specifications
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint</th>
+      <th>Columns</th>
+      <th>Gutter</th>
+      <th>Margin</th>
+      <th>Container width</th>
+      <th>Column width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Mobile</td><td>4</td><td>16px</td><td>16px</td><td>360px</td><td>60px</td></tr>
+    <tr><td>Tablet</td><td>8</td><td>16px</td><td>48px</td><td>768px</td><td>60px</td></tr>
+    <tr><td>Desktop</td><td>12</td><td>16px</td><td>56px</td><td>1140px</td><td>71px</td></tr>
+    <tr><td>Desktop HD</td><td>12</td><td>16px</td><td>56px</td><td>1440px</td><td>96px</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Usage
+
+- Lay out pages with consistent columns and gutters from the grid spec
+- Align components to grid columns rather than arbitrary widths
+- Use token spacing (`p-leo-16`, `gap-leo-16`) for gutters and margins where utilities apply
+- On native, prefer flex layouts that mirror column counts at each breakpoint
+
+```tsx
+// Web: responsive column layout with Tailwind breakpoints
+<View className="flex-row flex-wrap gap-leo-16 tablet:gap-leo-16">
+  <View className="w-full tablet:w-1/2 desktop:w-1/3">{/* column */}</View>
+</View>
+```
+
+---
+
+## Principles
+
+- Mobile-first — design for 4 columns, then expand
+- Keep content within the container width at each breakpoint
+- Maintain 16px gutters consistently across breakpoints
+- Increase side margins on tablet and desktop to frame content

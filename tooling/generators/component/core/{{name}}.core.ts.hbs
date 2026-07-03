@@ -1,0 +1,45 @@
+import { cva } from 'class-variance-authority';
+import { cn } from '../../lib/cn';
+
+const {{camelCase name}}VariantClasses = {
+  default: 'bg-card border border-border shadow-sm',
+  outline: 'bg-background border border-border',
+} as const;
+
+export type {{pascalCase name}}Variant = keyof typeof {{camelCase name}}VariantClasses;
+
+export const {{camelCase name}}VariantValues = Object.keys(
+  {{camelCase name}}VariantClasses,
+) as {{pascalCase name}}Variant[];
+
+export const {{camelCase name}}Variants = cva(
+  'relative inline-flex rounded-8 text-foreground',
+  {
+    variants: {
+      variant: {{camelCase name}}VariantClasses,
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+);
+
+export const {{camelCase name}}DisabledVariants = cva(
+  'relative inline-flex rounded-8 bg-muted text-muted-foreground cursor-not-allowed pointer-events-none shadow-none border border-border',
+);
+
+export function {{camelCase name}}ClassName({
+  variant = 'default',
+  disabled = false,
+  className,
+}: {
+  variant?: {{pascalCase name}}Variant;
+  disabled?: boolean;
+  className?: string;
+}) {
+  if (disabled) {
+    return cn({{camelCase name}}DisabledVariants(), className);
+  }
+
+  return cn({{camelCase name}}Variants({ variant }), className);
+}

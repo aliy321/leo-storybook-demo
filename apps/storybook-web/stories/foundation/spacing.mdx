@@ -1,0 +1,186 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Spacing" />
+
+# Spacing
+
+The LEO spacing scale creates consistent visual rhythm across padding, margin, gap, border radius, and border width. Token keys use the `leo-` namespace (for example `p-leo-16` = 16px padding).
+
+---
+
+## Spacing scale
+
+<div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap' }}>
+  {[
+    ['0', 0], ['leo-2', 2], ['leo-4', 4], ['leo-8', 8], ['leo-12', 12],
+    ['leo-16', 16], ['leo-24', 24], ['leo-28', 28], ['leo-32', 32],
+    ['leo-40', 40], ['leo-48', 48], ['leo-64', 64],
+  ].map(([token, px]) => (
+    <div key={token} style={{ textAlign: 'center' }}>
+      <div style={{ width: px || 2, height: 24, background: 'var(--primary)', minWidth: px ? undefined : 2 }} />
+      <span style={{ fontSize: 11, color: 'var(--paragraph)' }}>{px}px</span>
+    </div>
+  ))}
+</div>
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>Value</th><th>Common use</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>0</code></td><td>0</td><td>Reset spacing</td></tr>
+    <tr><td><code>leo-2</code></td><td>2px</td><td>Hairline gaps</td></tr>
+    <tr><td><code>leo-4</code></td><td>4px</td><td>Tight padding</td></tr>
+    <tr><td><code>leo-8</code></td><td>8px</td><td>Compact elements</td></tr>
+    <tr><td><code>leo-12</code></td><td>12px</td><td>Default compact padding</td></tr>
+    <tr><td><code>leo-16</code></td><td>16px</td><td>Standard padding</td></tr>
+    <tr><td><code>leo-24</code></td><td>24px</td><td>Section spacing</td></tr>
+    <tr><td><code>leo-28</code></td><td>28px</td><td>Medium section gaps</td></tr>
+    <tr><td><code>leo-32</code></td><td>32px</td><td>Large padding</td></tr>
+    <tr><td><code>leo-40</code></td><td>40px</td><td>Generous spacing</td></tr>
+    <tr><td><code>leo-48</code></td><td>48px</td><td>Section breaks</td></tr>
+    <tr><td><code>leo-64</code></td><td>64px</td><td>Page-level spacing</td></tr>
+  </tbody>
+</table>
+
+```tsx
+<View className="p-leo-16 m-leo-8 rounded-8">
+  <Text className="pb-leo-8 mb-leo-12">Content with 16px padding</Text>
+  <View className="mt-leo-24 p-leo-32 border border-1">
+    <Text>Nested content with 32px padding</Text>
+  </View>
+</View>
+```
+
+---
+
+## Padding
+
+Padding creates space **inside** an element.
+
+<table>
+  <thead>
+    <tr><th>Class pattern</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>p-{'{size}'}</code></td><td>All sides</td></tr>
+    <tr><td><code>px-{'{size}'}</code></td><td>Horizontal (left + right)</td></tr>
+    <tr><td><code>py-{'{size}'}</code></td><td>Vertical (top + bottom)</td></tr>
+    <tr><td><code>pt-{'{size}'}</code>, <code>pr-{'{size}'}</code>, <code>pb-{'{size}'}</code>, <code>pl-{'{size}'}</code></td><td>Individual sides</td></tr>
+  </tbody>
+</table>
+
+Replace `{size}` with a scale token (`leo-4`, `leo-16`, etc.).
+
+---
+
+## Margin
+
+Margin creates space **outside** an element.
+
+<table>
+  <thead>
+    <tr><th>Class pattern</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>m-{'{size}'}</code></td><td>All sides</td></tr>
+    <tr><td><code>mx-{'{size}'}</code></td><td>Horizontal</td></tr>
+    <tr><td><code>my-{'{size}'}</code></td><td>Vertical</td></tr>
+    <tr><td><code>mt-{'{size}'}</code>, <code>mr-{'{size}'}</code>, <code>mb-{'{size}'}</code>, <code>ml-{'{size}'}</code></td><td>Individual sides</td></tr>
+  </tbody>
+</table>
+
+```tsx
+<View className="m-leo-16" />
+<View className="mt-leo-24 mb-leo-8" />
+```
+
+---
+
+## Gap
+
+Gap applies consistent spacing between flex or grid children.
+
+<table>
+  <thead>
+    <tr><th>Class</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>gap-{'{size}'}</code></td><td>Gap between all children</td></tr>
+    <tr><td><code>gap-x-{'{size}'}</code></td><td>Horizontal gap only</td></tr>
+    <tr><td><code>gap-y-{'{size}'}</code></td><td>Vertical gap only</td></tr>
+  </tbody>
+</table>
+
+```tsx
+<View className="flex-row gap-leo-12">
+  <Button>Cancel</Button>
+  <Button>Save</Button>
+</View>
+```
+
+---
+
+## Border radius
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>Value</th><th>Visual</th><th>Use</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>0</code></td><td>0</td>
+      <td><div style={{ width: 40, height: 40, background: 'var(--primary)', borderRadius: 0 }} /></td>
+      <td>Sharp corners</td>
+    </tr>
+    <tr>
+      <td><code>4</code></td><td>4px</td>
+      <td><div style={{ width: 40, height: 40, background: 'var(--primary)', borderRadius: 4 }} /></td>
+      <td>Subtle rounding</td>
+    </tr>
+    <tr>
+      <td><code>8</code></td><td>8px</td>
+      <td><div style={{ width: 40, height: 40, background: 'var(--primary)', borderRadius: 8 }} /></td>
+      <td>Buttons, inputs</td>
+    </tr>
+    <tr>
+      <td><code>16</code></td><td>16px</td>
+      <td><div style={{ width: 40, height: 40, background: 'var(--primary)', borderRadius: 16 }} /></td>
+      <td>Cards, modals</td>
+    </tr>
+  </tbody>
+</table>
+
+Use `rounded-{size}` (for example `rounded-8`).
+
+---
+
+## Border width
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>Value</th><th>Class</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>0</code></td><td>0</td><td><code>border-0</code></td></tr>
+    <tr><td><code>1</code></td><td>1px</td><td><code>border-1</code></td></tr>
+    <tr><td><code>2</code></td><td>2px</td><td><code>border-2</code></td></tr>
+  </tbody>
+</table>
+
+Pair with semantic border colors: `border border-primary`, `border-inverse-active`, etc.
+
+---
+
+## Best practices
+
+### Do
+
+- Use scale values consistently — `p-leo-16` for standard card padding, `gap-leo-8` for tight groups
+- Increase spacing between unrelated groups; decrease within a group
+- Use `gap-*` in flex layouts instead of margin on every child
+
+### Don't
+
+- Don't use arbitrary pixel values outside the token scale
+- Don't mix incompatible spacing rhythms on the same screen without intent

@@ -1,0 +1,12 @@
+/* Shadow DOM encapsulation: import compiled Tailwind + theme vars so utilities resolve */
+@import '../../../../tokens/dist/global.css';
+
+:host {
+  display: inline-flex;
+}
+
+.{{name}}-content {
+  position: relative;
+  z-index: 1;
+  display: contents;
+}

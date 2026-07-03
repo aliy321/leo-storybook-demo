@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Typography/Default font" />
+
+# Default font — Public Sans Pro
+
+**Public Sans Pro** is the primary UI typeface for body copy, labels, buttons, forms, and navigation across all products.
+
+## When to use
+
+- Body paragraphs and descriptions
+- Form labels, inputs, and validation messages
+- Button and link labels
+- Table content and list items
+- Navigation and tab labels
+
+## Application
+
+```tsx
+<Text className="font-public-sans-pro text-14 text-paragraph leading-14">
+  Body text at 14px with readable line height.
+</Text>
+
+<Text className="font-public-sans-pro text-16 font-semibold text-heading">
+  Section heading
+</Text>
+```
+
+On web, `font-public-sans-pro` is also available as a utility class in `@leo/tokens/css`. Fonts ship with `@leo/tokens/rn` and load automatically via `Theme`.
+
+## Weight guidance
+
+| Weight | Class | Typical use |
+| ------ | ----- | ----------- |
+| 400 | `font-regular` | Body text, default labels |
+| 600 | `font-semibold` | Buttons, subheadings, emphasis |
+| 700 | `font-bold` | Strong headings within UI |
+| 800 | `font-extrabold` | Rare in UI — prefer display font for hero scale |
+
+## Principles
+
+- Match line-height tokens for dense tables and forms (`leading-12` or `leading-14`)
+- Use `text-paragraph` for default body color; `text-heading` for titles within UI chrome
+- Support bilingual content with adequate line height — avoid tightening below `leading-12`
+- Do not load alternate sans-serif fonts in product apps

@@ -1,0 +1,71 @@
+import { Meta, IconGallery, IconItem } from '@storybook/addon-docs/blocks';
+import { getIconSvg } from '@leo/ui/icon';
+import iconSet from '@leo/tokens/icons';
+import {
+  actionArrowIcons,
+  actionIcons,
+  genericIcons,
+  navigationIcons,
+  productCategoryIcons,
+  takafulIcons,
+} from './icon-categories';
+
+<Meta title="Foundation/Iconography" />
+
+# Iconography
+
+Icons help users understand context quickly with visual cues and less reading.
+
+## Icon groups
+
+- [Product category](#product-category-icons)
+- [Takaful](#takaful-icons)
+- [Generic](#generic-icons)
+- [Action](#action-icons)
+- [Arrows](#arrow-icons)
+- [Navigation](#navigation-icons)
+
+export const encodeSvg = svg =>
+  `data:image/svg+xml;base64,${(typeof window !== 'undefined' ? window.btoa : globalThis.btoa)(svg)}`;
+
+export const downloadSvg = type => encodeSvg(iconSet[type] ?? '');
+
+export const renderIconGallery = items =>
+  items.map(item => (
+    <IconItem key={item.name} name={item.name}>
+      <a href={downloadSvg(item.name)} download={`${item.name}.svg`} target="_blank" rel="noreferrer">
+        <span
+          aria-label={item.name}
+          role="img"
+          style={{ display: 'inline-flex', width: 24, height: 24, color: `var(--leo-color-${item.color ?? 'foreground'}, currentColor)` }}
+          dangerouslySetInnerHTML={{ __html: getIconSvg(item.name, '24', '24') }}
+        />
+      </a>
+    </IconItem>
+  ));
+
+## Product category icons
+
+<IconGallery>{renderIconGallery(productCategoryIcons)}</IconGallery>
+
+## Takaful icons
+
+<IconGallery>{renderIconGallery(takafulIcons)}</IconGallery>
+
+## Generic icons
+
+<IconGallery>{renderIconGallery(genericIcons)}</IconGallery>
+
+## Action icons
+
+<IconGallery>{renderIconGallery(actionIcons)}</IconGallery>
+
+## Arrow icons
+
+<IconGallery>{renderIconGallery(actionArrowIcons)}</IconGallery>
+
+## Navigation icons
+
+<IconGallery>{renderIconGallery(navigationIcons)}</IconGallery>
+
+> Full catalog: 347 icons in `@leo/tokens/icons`. See **Components → Icon** for usage.

@@ -1,0 +1,18 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "paths": {
+      "@leo/ui/button": ["packages/ui/dist/button/index.d.ts"],
+      "@leo/native/button": ["packages/ui/src/button/native/button.native.tsx"]
+    }
+  },
+  "include": [
+    "*.tsx",
+    "*.ts",
+    "nativewind-env.d.ts",
+    "../../ui/src/button/native/button.native.tsx",
+    "../../ui/src/button/native/ButtonText.tsx"
+  ]
+}

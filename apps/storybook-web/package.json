@@ -1,0 +1,21 @@
+{
+  "name": "@leo/storybook-web",
+  "version": "3.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/wait-for-web.mjs && node ../../scripts/storybook-dev.mjs 6006",
+    "build": "storybook build",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@storybook/addon-links": "^10.4.6",
+    "@storybook/web-components": "^10.4.6",
+    "@storybook/web-components-vite": "^10.4.6",
+    "lit": "^3.2.0",
+    "storybook": "^10.4.6",
+    "typescript": "~5.9.2",
+    "vite": "^6.0.0",
+    "@storybook/addon-docs": "^10.4.6"
+  }
+}

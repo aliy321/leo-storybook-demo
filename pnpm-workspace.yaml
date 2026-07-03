@@ -1,0 +1,8 @@
+packages:
+  - 'packages/*'
+  - 'packages/publish/*'
+  - 'tooling/*'
+  - 'apps/*'
+allowBuilds:
+  esbuild: true
+  nx: true

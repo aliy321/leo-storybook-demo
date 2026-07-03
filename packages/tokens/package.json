@@ -1,0 +1,51 @@
+{
+  "name": "@leo/tokens",
+  "version": "3.0.0",
+  "description": "Shared design tokens for web and native",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./css": "./dist/global.css",
+    "./tailwind": "./dist/tailwind.config.cjs",
+    "./rn": "./rn/index.js",
+    "./rn/tailwind.config.js": "./rn/tailwind.config.cjs",
+    "./rn/tailwind.config.cjs": "./rn/tailwind.config.cjs",
+    "./rn/data/colors": "./rn/data/colors.js",
+    "./rn/data/themes": "./rn/data/themes.js",
+    "./rn/data/typography": "./rn/data/typography.js",
+    "./icons": "./dist/icon-set.js",
+    "./icons/map": {
+      "types": "./dist/icons/map.d.ts",
+      "import": "./dist/icons/map.js"
+    },
+    "./illustrations": "./dist/illustration-set.js"
+  },
+  "files": ["dist", "rn", "tokens"],
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build.cjs && node scripts/build-tailwind.cjs && node scripts/build-icons.cjs && node scripts/build-illustrations.cjs",
+    "dev": "node scripts/dev.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "token:fetch": "node scripts/fetch.cjs",
+    "token:build": "node scripts/build.cjs && node scripts/build-tailwind.cjs && node scripts/build-icons.cjs && node scripts/build-illustrations.cjs",
+    "token:verify": "node scripts/verify.cjs",
+    "token:generate": "node scripts/fetch.cjs && node scripts/build.cjs && node scripts/build-tailwind.cjs && node scripts/build-icons.cjs && node scripts/build-illustrations.cjs"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.9.2"
+  }
+}

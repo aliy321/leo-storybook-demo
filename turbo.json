@@ -1,0 +1,40 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "loader/**", "storybook-static/**", "rn/**"]
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "@leo/tokens#dev": {
+      "dependsOn": ["@leo/tokens#build"],
+      "cache": false,
+      "persistent": true
+    },
+    "@leo/web#dev": {
+      "dependsOn": ["@leo/ui#build"],
+      "cache": false,
+      "persistent": true
+    },
+    "@leo/storybook-web#dev": {
+      "dependsOn": ["@leo/ui#build"],
+      "cache": false,
+      "persistent": true
+    },
+    "@leo/storybook-native#dev": {
+      "dependsOn": ["@leo/ui#build"],
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    }
+  }
+}

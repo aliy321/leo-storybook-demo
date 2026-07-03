@@ -1,0 +1,76 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started/Introduction" />
+
+<img
+  src="images/DXS-logo-V1.svg"
+  alt="LEO Design System"
+  style={{ maxWidth: '240px', marginBottom: '3rem' }}
+/>
+
+# Getting started
+
+**Leo Design System** is the single source of truth for styling, UI patterns, and front-end implementation across Great Eastern products.
+
+**The design system consists of:**
+
+- Foundation primitives (colors, typography, icons, spacing, elevation)
+- Design tokens compiled from Figma into web CSS and React Native themes
+- Shared UI components with one `cva` style definition across platforms
+- Storybook docs for implementation and QA
+
+## Monorepo layout
+
+```text
+packages/tokens   → Figma JSON → global.css + themes.css + RN theme
+packages/ui       → core + web + native component shells
+tooling/web       → Stencil adapter
+tooling/native    → React Native adapter
+apps/storybook-*  → documentation and previews
+```
+
+## Quick start
+
+From the repo root:
+
+```bash
+pnpm install
+pnpm dev:web    # web Storybook on :6006
+pnpm dev:rn     # native Storybook on :6007
+```
+
+## Using tokens
+
+Import global tokens once at the app entry:
+
+```css
+@import '@leo/tokens/css';
+```
+
+Apply brand and color scheme on the document root:
+
+```html
+<html data-brand="default" data-color-scheme="light">
+```
+
+See [Design token](/docs/foundation-design-token--docs) for naming and usage.
+
+## Using components
+
+Components live in `@leo/ui`. Start from component stories under **Components** in the sidebar, then follow each docs page for props and examples.
+
+> Components share one variant definition in `core/` — do not duplicate style logic in web or native shells.
+
+## Do's and Don'ts
+
+### Do's
+
+- Use design tokens for color, spacing, and typography
+- Compose screens from documented components
+- Check Foundation pages before introducing new visual patterns
+
+### Don'ts
+
+- Do not hardcode foundation values in product code
+- Do not override component styling in consuming apps — request changes in the design system instead
+- Do not mix third-party UI libraries for patterns already covered by LEO

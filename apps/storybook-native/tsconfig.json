@@ -1,0 +1,36 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM"],
+    "noEmit": true,
+    "noImplicitAny": false,
+    "paths": {
+      "@leo/ui": ["packages/ui/src/index.ts"],
+      "@leo/ui/button": ["packages/ui/src/button/index.ts"],
+      "@storybook/react": [
+        "apps/storybook-native/node_modules/@storybook/react/dist/index.d.ts"
+      ],
+      "react": ["apps/storybook-native/node_modules/@types/react/index.d.ts"],
+      "react/jsx-runtime": [
+        "apps/storybook-native/node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "react-native": [
+        "apps/storybook-native/node_modules/react-native/types/index.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "stories/**/*",
+    ".storybook/**/*",
+    "../storybook-web/.storybook/shared/theme.ts",
+    "nativewind-env.d.ts",
+    "types/**/*.d.ts",
+    "../../packages/ui/src/**/*.stories.tsx",
+    "../../packages/ui/src/button/native/**/*.tsx",
+    "../../packages/ui/src/**/*.mdx"
+  ]
+}

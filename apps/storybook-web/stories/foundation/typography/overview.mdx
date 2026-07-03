@@ -1,0 +1,145 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Typography/Overview" />
+
+# Typography
+
+LEO typography ensures readability, hierarchy, and consistency across web and native. Sizes, weights, and line heights come from Figma tokens — not ad hoc pixel values.
+
+See [Default font](/docs/foundation-typography-default-font--docs) and [Display font](/docs/foundation-typography-display-font--docs) for family-specific guidance.
+
+---
+
+## Font families
+
+LEO provides two font families:
+
+<div style={{ padding: 16, borderRadius: 8, border: '1px solid var(--border)', background: 'var(--canvas)', marginBottom: 24 }}>
+  <div style={{ fontFamily: "'Mr Banks', serif", fontSize: 40, fontWeight: 700, color: 'var(--primary)', marginBottom: 12 }}>Mr. Banks — Display</div>
+  <div style={{ fontFamily: "'Public Sans Pro', 'Public Sans', sans-serif", fontSize: 32, color: 'var(--secondary)' }}>Public Sans Pro — UI text</div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Class</th><th>Font</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>font-mr-banks</code></td><td>Mr. Banks</td><td>Display and marketing headlines</td></tr>
+    <tr><td><code>font-public-sans-pro</code></td><td>Public Sans Pro</td><td>Body, labels, buttons, and UI text</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Font sizes
+
+Primitive sizes from the token scale. Combine with weight and line-height utilities.
+
+<table>
+  <thead>
+    <tr><th>Class</th><th>Size</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>text-8</code></td><td>8px</td></tr>
+    <tr><td><code>text-10</code></td><td>10px</td></tr>
+    <tr><td><code>text-12</code></td><td>12px</td></tr>
+    <tr><td><code>text-14</code></td><td>14px</td></tr>
+    <tr><td><code>text-16</code></td><td>16px</td></tr>
+    <tr><td><code>text-18</code></td><td>18px</td></tr>
+    <tr><td><code>text-20</code></td><td>20px</td></tr>
+    <tr><td><code>text-22</code></td><td>22px</td></tr>
+    <tr><td><code>text-24</code></td><td>24px</td></tr>
+    <tr><td><code>text-28</code></td><td>28px</td></tr>
+    <tr><td><code>text-32</code></td><td>32px</td></tr>
+    <tr><td><code>text-36</code></td><td>36px</td></tr>
+    <tr><td><code>text-40</code></td><td>40px</td></tr>
+    <tr><td><code>text-48</code></td><td>48px</td></tr>
+    <tr><td><code>text-56</code></td><td>56px</td></tr>
+    <tr><td><code>text-64</code></td><td>64px</td></tr>
+    <tr><td><code>text-72</code></td><td>72px</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Font weights
+
+<div style={{ padding: 16, borderRadius: 8, border: '1px solid var(--border)', background: 'var(--canvas)', marginBottom: 16 }}>
+  <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--primary)', marginBottom: 8 }}>font-extrabold (800)</div>
+  <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--primary)', marginBottom: 8 }}>font-bold (700)</div>
+  <div style={{ fontSize: 24, fontWeight: 600, color: 'var(--primary)', marginBottom: 8 }}>font-semibold (600)</div>
+  <div style={{ fontSize: 24, fontWeight: 400, color: 'var(--primary)' }}>font-regular (400)</div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Class</th><th>Weight</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>font-regular</code></td><td>400</td><td>Body text, default weight</td></tr>
+    <tr><td><code>font-semibold</code></td><td>600</td><td>Subheadings, buttons, emphasis</td></tr>
+    <tr><td><code>font-bold</code></td><td>700</td><td>Headlines, strong emphasis</td></tr>
+    <tr><td><code>font-extrabold</code></td><td>800</td><td>Display text, hero elements</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Line heights
+
+<table>
+  <thead>
+    <tr><th>Class</th><th>Value</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>leading-0</code></td><td>0</td><td>Special cases only</td></tr>
+    <tr><td><code>leading-1</code></td><td>1</td><td>Tight, single-line text</td></tr>
+    <tr><td><code>leading-12</code></td><td>1.2</td><td>Compact text, headings</td></tr>
+    <tr><td><code>leading-14</code></td><td>1.4</td><td>Body text, readable paragraphs</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Letter spacing
+
+<table>
+  <thead>
+    <tr><th>Class</th><th>Value</th><th>Use case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>tracking-0</code></td><td>0</td><td>Normal (default)</td></tr>
+    <tr><td><code>tracking-2</code></td><td>2px</td><td>Expanded spacing, uppercase labels</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Typography color tokens
+
+Text color roles adapt to brand and scheme. Use with size and weight utilities:
+
+| Token | Class | Use |
+| ----- | ----- | --- |
+| Display | `text-display` | Large headlines |
+| Heading | `text-heading` | Section titles |
+| Paragraph | `text-paragraph` | Body content |
+| Footnote | `text-footnote` | Captions and small text |
+
+---
+
+## Best practices
+
+### Do
+
+- Use token sizes (`text-14`, `text-24`) — combine with `font-*` and `leading-*`
+- Pair `leading-14` with body-sized text for readability
+- Reserve `font-mr-banks` for display and marketing moments
+- Use `font-public-sans-pro` for all interface text
+- Limit the number of sizes on a single screen
+
+### Don't
+
+- Don't use arbitrary font sizes outside the scale
+- Don't mix font families without a clear hierarchy reason
+- Don't use display font for dense UI like tables or forms

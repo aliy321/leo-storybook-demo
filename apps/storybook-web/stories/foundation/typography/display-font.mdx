@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Typography/Display font" />
+
+# Display font — Mr. Banks
+
+**Mr. Banks** is the brand display typeface for high-impact headlines and marketing moments. It carries brand personality and should be used sparingly.
+
+## When to use
+
+- Hero headlines on landing and campaign pages
+- Large promotional banners
+- Marketing module titles (one per view)
+- Onboarding welcome headlines
+
+## When not to use
+
+- Body copy, labels, or form fields
+- Dense data tables or transactional flows
+- Error messages, toasts, or system feedback
+- Navigation or button text
+
+## Application
+
+```tsx
+<Text className="font-mr-banks text-40 font-bold text-display">
+  Protect what matters
+</Text>
+
+<Text className="font-public-sans-pro text-16 text-paragraph leading-14">
+  Supporting body copy always uses Public Sans Pro.
+</Text>
+```
+
+<div style={{ padding: 24, borderRadius: 8, background: 'var(--canvas)', border: '1px solid var(--border)', marginTop: 16 }}>
+  <div style={{ fontFamily: "'Mr Banks', serif", fontSize: 40, fontWeight: 700, color: 'var(--display)', marginBottom: 12 }}>Display headline</div>
+  <div style={{ fontFamily: "'Public Sans Pro', sans-serif", fontSize: 16, color: 'var(--paragraph)', lineHeight: 1.4 }}>Pair display headlines with Public Sans Pro body text for hierarchy and readability.</div>
+</div>
+
+## Principles
+
+- One or two display styles per view — avoid stacking multiple Mr. Banks lines
+- Always pair with default font for supporting text
+- Follow token sizes (`text-40`, `text-48`, etc.) — no custom tracking or sizing
+- Use `text-display` for the semantic display text color

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" data-brand="default" data-color-scheme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LEO Web Components</title>
+    <link rel="stylesheet" href="/build/leo.css" />
+    <script type="module" src="/build/leo.esm.js"></script>
+    <script nomodule src="/build/leo.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 32px;
+        background: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: "Public Sans", system-ui, sans-serif;
+      }
+
+      main {
+        display: grid;
+        gap: 24px;
+      }
+
+      section {
+        display: grid;
+        gap: 12px;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .file-warning {
+        display: none;
+        padding: 12px 16px;
+        border: 1px solid #f59e0b;
+        border-radius: 8px;
+        background: #fffbeb;
+        color: #92400e;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="file-warning">
+        This Stencil test page must be opened from http://127.0.0.1:7010/, not
+        as a file URL.
+      </p>
+
+      <section>
+        <h1>Button</h1>
+        <div class="row">
+          <leo-button label="Button"></leo-button>
+          <leo-button label="Secondary" variant="secondary"></leo-button>
+          <leo-button label="Outline" variant="outline"></leo-button>
+          <leo-button label="Ghost" variant="ghost"></leo-button>
+          <leo-button label="Destructive" variant="destructive"></leo-button>
+          <leo-button label="Link" variant="link"></leo-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Sizes</h2>
+        <div class="row">
+          <leo-button label="SM" size="sm"></leo-button>
+          <leo-button label="Default"></leo-button>
+          <leo-button label="LG" size="lg"></leo-button>
+          <leo-button label="Icon" size="icon"></leo-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Disabled</h2>
+        <div class="row">
+          <leo-button label="Disabled" disabled></leo-button>
+          <leo-button label="Secondary" variant="secondary" disabled></leo-button>
+          <leo-button label="Outline" variant="outline" disabled></leo-button>
+        </div>
+      </section>
+    </main>
+    <script>
+      if (window.location.protocol === 'file:') {
+        document.querySelector('.file-warning').style.display = 'block';
+      }
+    </script>
+  </body>
+</html>

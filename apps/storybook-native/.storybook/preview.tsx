@@ -1,0 +1,110 @@
+import type { Preview } from '@storybook/react';
+import '@leo/tokens/css';
+import './storybook-overrides.css';
+import { Theme } from '@leo/tokens/rn';
+import {
+  applyThemeFromGlobals,
+  brandGlobalType,
+  colorSchemeGlobalType,
+  parseBrand,
+  parseColorScheme,
+  subscribeThemeGlobals,
+  themeParameters,
+} from '../../storybook-web/.storybook/shared/preview-theme.js';
+subscribeThemeGlobals();
+
+const preview: Preview = {
+  globalTypes: {
+    brand: brandGlobalType,
+    colorScheme: colorSchemeGlobalType,
+  },
+  decorators: [
+    (Story, context) => {
+      const brand = parseBrand(context.globals);
+      const colorScheme = parseColorScheme(context.globals);
+
+      applyThemeFromGlobals(context.globals);
+
+      return (
+        <Theme name={brand} colorScheme={colorScheme} style={{ flex: 1, alignSelf: 'stretch', minHeight: '100%' }}>
+          <Story />
+        </Theme>
+      );
+    },
+  ],
+  parameters: {
+    ...themeParameters,
+    controls: {
+      ...themeParameters.controls,
+      matchers: {
+        ...themeParameters.controls.matchers,
+        date: /Date$/i,
+      },
+    },
+    options: {
+      storySort: (a, b) => {
+        const sectionOrder = ['Getting Started', 'Foundation', 'Reference', 'Components'];
+        const foundationOrder = [
+          'Design token',
+          'Colors',
+          'Typography',
+          'Spacing',
+          'Shadows',
+          'Grid System',
+          'Iconography',
+          'Illustration',
+          'Imagery',
+        ];
+        const typographyOrder = ['Overview', 'Default font', 'Display font'];
+        const buttonOrder = ['Docs', 'Default', 'Variants', 'Sizes', 'Disabled', 'Icons', 'Bilingual'];
+        const cardOrder = ['Docs', 'Default', 'Variants', 'Disabled', 'Clickable'];
+        const rank = (values, value) => {
+          const index = values.indexOf(value);
+          return index === -1 ? values.length : index;
+        };
+        const entryA = Array.isArray(a) ? a[1] : a;
+        const entryB = Array.isArray(b) ? b[1] : b;
+        const titleA = entryA.title ?? '';
+        const titleB = entryB.title ?? '';
+        const partsA = titleA.split('/');
+        const partsB = titleB.split('/');
+        const sectionA = partsA[0] ?? '';
+        const sectionB = partsB[0] ?? '';
+        const sectionRankA = rank(sectionOrder, sectionA);
+        const sectionRankB = rank(sectionOrder, sectionB);
+
+        if (sectionRankA !== sectionRankB) return sectionRankA - sectionRankB;
+
+        if (sectionA === 'Foundation') {
+          const pageA = partsA[1] ?? '';
+          const pageB = partsB[1] ?? '';
+          const pageRankA = rank(foundationOrder, pageA);
+          const pageRankB = rank(foundationOrder, pageB);
+          if (pageRankA !== pageRankB) return pageRankA - pageRankB;
+
+          if (pageA === 'Typography' && pageB === 'Typography') {
+            return rank(typographyOrder, partsA[2] ?? '') - rank(typographyOrder, partsB[2] ?? '');
+          }
+        }
+
+        if (titleA !== titleB) return titleA.localeCompare(titleB);
+
+        if (titleA === 'Components/Button') {
+          const nameA = entryA.name === 'Docs' || entryA.id?.endsWith('--docs') ? 'Docs' : entryA.name ?? '';
+          const nameB = entryB.name === 'Docs' || entryB.id?.endsWith('--docs') ? 'Docs' : entryB.name ?? '';
+          return rank(buttonOrder, nameA) - rank(buttonOrder, nameB);
+        }
+
+        if (titleA === 'Components/Card') {
+          const nameA = entryA.name === 'Docs' || entryA.id?.endsWith('--docs') ? 'Docs' : entryA.name ?? '';
+          const nameB = entryB.name === 'Docs' || entryB.id?.endsWith('--docs') ? 'Docs' : entryB.name ?? '';
+          return rank(cardOrder, nameA) - rank(cardOrder, nameB);
+        }
+
+        return (entryA.name ?? '').localeCompare(entryB.name ?? '');
+      },
+    },
+  },
+};
+
+export default preview;

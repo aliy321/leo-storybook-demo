@@ -1,0 +1,14 @@
+node_modules
+.pnpm-store
+dist
+.turbo
+*.tsbuildinfo
+*.log
+.DS_Store
+.expo
+storybook-static
+tooling/web/.stencil
+tooling/web/loader
+tooling/web/src/components.d.ts
+tooling/web/www
+tooling/packages
