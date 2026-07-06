@@ -59,8 +59,11 @@ const config: StorybookConfig = {
     '../../../packages/ui/src/card/web/card.stories.ts',
     '../../../packages/ui/src/button/docs/button.docs.mdx',
     '../../../packages/ui/src/card/docs/card.docs.mdx',
-
-    '../../../packages/ui/src/sample/web/sample.stories.ts',  ],
+    '../../../packages/ui/src/badge/web/badge.stories.ts',
+    '../../../packages/ui/src/badge/docs/badge.docs.mdx',
+    '../../../packages/ui/src/alert/web/alert.stories.ts',
+    '../../../packages/ui/src/alert/docs/alert.docs.mdx',
+  ],
   addons: [getAbsolutePath("@storybook/addon-links"), getAbsolutePath("@storybook/addon-docs")],
   framework: {
     name: getAbsolutePath("@storybook/web-components-vite"),
@@ -79,8 +82,10 @@ const config: StorybookConfig = {
       '@leo/ui/button': resolve(__dirname, '../../../packages/ui/src/button/index.ts'),
       '@leo/ui/card': resolve(__dirname, '../../../packages/ui/src/card/index.ts'),
       '@leo/ui/icon': resolve(__dirname, '../../../packages/ui/src/icon/index.ts'),
+      '@leo/ui/badge': resolve(__dirname, '../../../packages/ui/src/badge/index.ts'),
+      '@leo/ui/alert': resolve(__dirname, '../../../packages/ui/src/alert/index.ts'),
 
-      '@leo/ui/sample': resolve(__dirname, '../../../packages/ui/src/sample/index.ts'),      '@leo/ui': resolve(__dirname, '../../../packages/ui/src/index.ts'),
+      '@leo/ui': resolve(__dirname, '../../../packages/ui/src/index.ts'),
       '@leo/web/loader': resolve(__dirname, '../../../tooling/web/loader'),
       '@leo/tokens/css': resolve(__dirname, '../../../packages/tokens/dist/global.css'),
       '@leo/tokens/icons': resolve(__dirname, '../../../packages/tokens/dist/icon-set.js'),

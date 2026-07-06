@@ -402,3 +402,15 @@ pre.prismjs code,
   font-family: 'public-sans-pro', sans-serif !important;
   font-weight: 600 !important;
 }
+
+/* Alert gallery captions — beat docs prose and accidental heading styles */
+.leo-alert-gallery-label,
+[data-leo-alert-gallery-label] {
+  display: block;
+  font-family: 'Public Sans', system-ui, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  font-weight: 500 !important;
+  color: var(--muted-foreground) !important;
+  margin: 0 0 8px !important;
+}

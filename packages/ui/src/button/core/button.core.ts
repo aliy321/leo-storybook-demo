@@ -6,7 +6,7 @@ const buttonVariantClasses = {
   outline: 'border border-border bg-background shadow-sm shadow-black/5 active:bg-accent hover:bg-accent',
   secondary: 'bg-secondary shadow-sm shadow-black/5 active:bg-secondary/80 hover:bg-secondary/80',
   ghost: 'active:bg-accent hover:bg-accent',
-  link: '',
+  link: 'h-auto min-h-0 border-0 bg-transparent p-0 shadow-none rounded-none overflow-visible',
 } as const;
 
 const buttonSizeClasses = {
@@ -33,6 +33,9 @@ export const buttonRippleVariantClass = {
   link: '',
 } as const satisfies Record<ButtonVariant, string>;
 
+/** Shared class for animated link underline (web shadow CSS). */
+export const buttonLinkTextClass = 'button-link-text';
+
 export const buttonAndroidRippleColor: Record<ButtonVariant, string | null> = {
   default: 'rgba(255, 255, 255, 0.35)',
   destructive: 'rgba(255, 255, 255, 0.35)',
@@ -49,6 +52,13 @@ export const buttonVariants = cva(
       variant: buttonVariantClasses,
       size: buttonSizeClasses,
     },
+    compoundVariants: [
+      {
+        variant: 'link',
+        size: ['default', 'sm', 'lg'],
+        class: 'h-auto min-h-0 px-0 py-0',
+      },
+    ],
     defaultVariants: {
       variant: 'default',
       size: 'default',
@@ -66,7 +76,7 @@ export const buttonTextVariants = cva(
         outline: 'group-active:text-accent-foreground group-hover:text-accent-foreground',
         secondary: 'text-secondary-foreground',
         ghost: 'group-active:text-accent-foreground group-hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 group-active:underline group-hover:underline',
+        link: 'relative text-primary font-medium',
       },
       size: {
         default: '',

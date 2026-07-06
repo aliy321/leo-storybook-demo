@@ -1,0 +1,18 @@
+@import '../../../../tokens/dist/global.css';
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+[data-slot='alert-description'] {
+  width: 100%;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+:host-context(leo-alert[data-variant='error']) [data-slot='alert-description'] {
+  color: rgb(var(--destructive-rgb) / 0.9);
+}

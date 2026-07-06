@@ -1,0 +1,49 @@
+@import '../../../../tokens/dist/global.css';
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+[data-slot='alert'] {
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.alert-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.alert-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  pointer-events: none;
+}
+
+.alert-body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.alert-body ::slotted(*) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding-left: 1.5rem;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.alert-body ::slotted([data-alert-actions]) {
+  display: flex;
+  align-items: center;
+}

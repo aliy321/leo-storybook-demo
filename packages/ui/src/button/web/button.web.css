@@ -16,8 +16,8 @@ button {
   cursor: pointer;
 }
 
-button:not(.button--icon) {
-  width: 100%;
+button:not(.button--icon):not(.button--link) {
+  width: auto;
 }
 
 button.button--icon {
@@ -77,7 +77,7 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  width: 100%;
+  width: auto;
 }
 
 .button-ripple {
@@ -125,6 +125,54 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .button-ripple .ripple {
+    transition: none;
+  }
+}
+
+button.button--link {
+  width: auto;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+button.button--link .button-content {
+  width: auto;
+  gap: 0.375rem;
+}
+
+button.button--link .button-link-text {
+  position: relative;
+  display: inline-block;
+  color: var(--primary, #d52b1e);
+  text-decoration: none;
+}
+
+button.button--link .button-link-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+button.button--link:hover .button-link-text::after,
+button.button--link:focus-visible .button-link-text::after,
+button.button--link:active .button-link-text::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button.button--link .button-link-text::after {
     transition: none;
   }
 }

@@ -1,0 +1,96 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AlertStories from '../web/alert.stories';
+
+<Meta title="Components/Alert" of={AlertStories} />
+
+# Alert
+
+Compound alert for contextual messages. Compose `leo-alert`, `leo-alert-title`, and `leo-alert-description` instead of passing title, body, and button labels as props.
+
+**Supported screens:** Mobile, Tablet, Desktop
+
+## Usage
+
+- Use alerts near the content they describe.
+- Keep titles short and descriptions specific.
+- Add actions by composing `leo-button` inside the alert.
+
+## Variants
+
+<table>
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>LDS label</th>
+      <th>Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>default</code></td><td>Default</td><td>Neutral contextual information</td></tr>
+    <tr><td><code>info</code></td><td>Info</td><td>Informational updates</td></tr>
+    <tr><td><code>error</code></td><td>Alert</td><td>Error or blocking state</td></tr>
+    <tr><td><code>warning</code></td><td>Warning</td><td>Caution before an action</td></tr>
+    <tr><td><code>success</code></td><td>Success</td><td>Positive confirmation</td></tr>
+  </tbody>
+</table>
+
+## Accessibility
+
+- Root uses `role="alert"`.
+- Keep titles short and descriptions specific.
+
+## Implementation
+
+Alert follows the shadcn compound pattern with shared CVA classes in `packages/ui/src/alert/core/alert.core.ts`.
+
+## Stories
+
+Use **Default** to explore props interactively. Gallery stories below are visual reference only; their Controls are disabled.
+
+### Default
+
+Default includes composed `leo-button` actions. Toggle **showActions** in Controls.
+
+<Canvas of={ AlertStories.Default } />
+
+### Variants
+
+<Canvas of={ AlertStories.Variants } />
+
+## API
+
+### Web components
+
+<table>
+  <thead>
+    <tr>
+      <th>Tag</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>leo-alert</code></td><td>Root container. Accepts <code>variant</code>.</td></tr>
+    <tr><td><code>leo-alert-title</code></td><td>Short alert heading.</td></tr>
+    <tr><td><code>leo-alert-description</code></td><td>Supporting message body.</td></tr>
+  </tbody>
+</table>
+
+### `leo-alert`
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td><code>variant</code></td><td>LDS semantic type</td><td><code>default | info | error | warning | success</code></td><td><code>default</code></td></tr>
+    <tr><td><code>icon-type</code></td><td><code>icon-type</code></td><td>Leading icon from LDS set; omit for variant default</td><td>LDS alert icons</td><td>variant default</td></tr>
+  </tbody>
+</table>
+
+<ArgTypes of={AlertStories} />

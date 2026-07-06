@@ -11,6 +11,7 @@ export {
   buttonSizeValues,
   buttonRippleVariantClass,
   buttonAndroidRippleColor,
+  buttonLinkTextClass,
 } from './core/button.core';
 
 export {

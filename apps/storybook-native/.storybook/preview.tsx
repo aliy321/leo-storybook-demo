@@ -58,10 +58,19 @@ const preview: Preview = {
         const typographyOrder = ['Overview', 'Default font', 'Display font'];
         const buttonOrder = ['Docs', 'Default', 'Variants', 'Sizes', 'Disabled', 'Icons', 'Bilingual'];
         const cardOrder = ['Docs', 'Default', 'Variants', 'Disabled', 'Clickable'];
+        const alertOrder = ['Docs', 'Default', 'Variants'];
+        const componentOrderByTitle = {
+          'Components/Button': buttonOrder,
+          'Components/Card': cardOrder,
+          'Components/Alert': alertOrder,
+        };
+        const docsFirstOrder = ['Docs'];
         const rank = (values, value) => {
           const index = values.indexOf(value);
           return index === -1 ? values.length : index;
         };
+        const storyName = (entry) =>
+          entry.name === 'Docs' || entry.id?.endsWith('--docs') ? 'Docs' : entry.name ?? '';
         const entryA = Array.isArray(a) ? a[1] : a;
         const entryB = Array.isArray(b) ? b[1] : b;
         const titleA = entryA.title ?? '';
@@ -89,16 +98,13 @@ const preview: Preview = {
 
         if (titleA !== titleB) return titleA.localeCompare(titleB);
 
-        if (titleA === 'Components/Button') {
-          const nameA = entryA.name === 'Docs' || entryA.id?.endsWith('--docs') ? 'Docs' : entryA.name ?? '';
-          const nameB = entryB.name === 'Docs' || entryB.id?.endsWith('--docs') ? 'Docs' : entryB.name ?? '';
-          return rank(buttonOrder, nameA) - rank(buttonOrder, nameB);
-        }
-
-        if (titleA === 'Components/Card') {
-          const nameA = entryA.name === 'Docs' || entryA.id?.endsWith('--docs') ? 'Docs' : entryA.name ?? '';
-          const nameB = entryB.name === 'Docs' || entryB.id?.endsWith('--docs') ? 'Docs' : entryB.name ?? '';
-          return rank(cardOrder, nameA) - rank(cardOrder, nameB);
+        if (sectionA === 'Components') {
+          const componentOrder = componentOrderByTitle[titleA] ?? docsFirstOrder;
+          const nameA = storyName(entryA);
+          const nameB = storyName(entryB);
+          const componentRank = rank(componentOrder, nameA) - rank(componentOrder, nameB);
+          if (componentRank !== 0) return componentRank;
+          return nameA.localeCompare(nameB);
         }
 
         return (entryA.name ?? '').localeCompare(entryB.name ?? '');

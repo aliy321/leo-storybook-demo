@@ -57,6 +57,12 @@
       ],
       "@stencil/core": [
         "node_modules/@stencil/core"
+      ],
+      "@leo/ui/badge": [
+        "../../packages/ui/src/badge/index.ts"
+      ],
+      "@leo/ui/alert": [
+        "../../packages/ui/src/alert/index.ts"
       ]
     },
     "noUnusedLocals": true,

@@ -42,8 +42,11 @@ const config: StorybookConfig = {
     '../../../packages/ui/src/card/native/card.stories.tsx',
     '../../../packages/ui/src/button/docs/button.docs.native.mdx',
     '../../../packages/ui/src/card/docs/card.docs.native.mdx',
-
-    '../../../packages/ui/src/sample/native/sample.stories.tsx',  ],
+    '../../../packages/ui/src/badge/native/badge.stories.tsx',
+    '../../../packages/ui/src/badge/docs/badge.docs.native.mdx',
+    '../../../packages/ui/src/alert/native/alert.stories.tsx',
+    '../../../packages/ui/src/alert/docs/alert.docs.native.mdx',
+  ],
   addons: ['@storybook/addon-links', '@storybook/addon-docs'],
   framework: {
     name: '@storybook/react-webpack5',
@@ -72,8 +75,10 @@ const config: StorybookConfig = {
       '@leo/tokens/illustrations': path.resolve(__dirname, '../../../packages/tokens/dist/illustration-set.js'),
       '@leo/ui/icon': path.resolve(__dirname, '../../../packages/ui/src/icon/index.ts'),
       '@leo/ui/card': path.resolve(__dirname, '../../../packages/ui/src/card/index.ts'),
+      '@leo/ui/badge': path.resolve(__dirname, '../../../packages/ui/src/badge/index.ts'),
+      '@leo/ui/alert': path.resolve(__dirname, '../../../packages/ui/src/alert/index.ts'),
 
-      '@leo/ui/sample': path.resolve(__dirname, '../../../packages/ui/src/sample/index.ts'),      '@leo/tokens/rn': path.resolve(__dirname, '../../../packages/tokens/rn/index.js'),
+      '@leo/tokens/rn': path.resolve(__dirname, '../../../packages/tokens/rn/index.js'),
       '@leo/native/button': path.resolve(componentsButtonNativeDir, 'button.native.tsx'),
     };
     webpackConfig.resolve.extensions = [

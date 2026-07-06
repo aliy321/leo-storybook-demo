@@ -79,7 +79,7 @@ function patchStencilConfig(name) {
     content = insertAfterLastMatch(
       content,
       /  '@leo\/ui\/[^']+': path\.resolve\(__dirname, '\.\.\/\.\.\/packages\/ui\/dist\/[^']+'\),\n/g,
-      `\n${packageLine}`,
+      `${packageLine}\n`,
     );
   }
 
@@ -87,7 +87,7 @@ function patchStencilConfig(name) {
     content = insertAfterLastMatch(
       content,
       /  path\.resolve\(__dirname, '\.\.\/\.\.\/packages\/ui\/dist\/[^']+'\),\n/g,
-      `\n${watchLine}`,
+      `${watchLine}\n`,
     );
   }
 
@@ -125,7 +125,7 @@ function patchStorybookWeb(name) {
       content = insertAfterLastMatch(
         content,
         /    '\.\.\/\.\.\/\.\.\/packages\/ui\/src\/[^']+',\n/g,
-        `\n${line}`,
+        `${line}\n`,
       );
     }
   }
@@ -134,7 +134,7 @@ function patchStorybookWeb(name) {
     content = insertAfterLastMatch(
       content,
       /      '@leo\/ui\/[^']+': resolve\(__dirname, '\.\.\/\.\.\/\.\.\/packages\/ui\/src\/[^']+'\),\n/g,
-      `\n${aliasLine}`,
+      `${aliasLine}\n`,
     );
   }
 
@@ -157,7 +157,7 @@ function patchStorybookNative(name) {
       content = insertAfterLastMatch(
         content,
         /    '\.\.\/\.\.\/\.\.\/packages\/ui\/src\/[^']+',\n/g,
-        `\n${line}`,
+        `${line}\n`,
       );
     }
   }
@@ -166,7 +166,7 @@ function patchStorybookNative(name) {
     content = insertAfterLastMatch(
       content,
       /      '@leo\/ui\/[^']+': path\.resolve\(__dirname, '\.\.\/\.\.\/\.\.\/packages\/ui\/src\/[^']+'\),\n/g,
-      `\n${aliasLine}`,
+      `${aliasLine}\n`,
     );
   }
 

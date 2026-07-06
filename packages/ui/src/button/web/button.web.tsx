@@ -9,6 +9,7 @@ import {
   buttonRippleVariantClass,
   buttonTextVariants,
   buttonVariants,
+  buttonLinkTextClass,
   cn,
   type ButtonSize,
   type ButtonVariant,
@@ -111,7 +112,7 @@ export class LeoButton {
 
     return [
       this.renderIcon(this.leftIconType, textClassName),
-      <span class={textClassName}>
+      <span class={cn(textClassName, this.variant === 'link' && buttonLinkTextClass)}>
         <slot>{this.label}</slot>
       </span>,
       this.renderIcon(this.rightIconType, textClassName),
@@ -125,6 +126,7 @@ export class LeoButton {
         size: this.size,
       }),
       this.isIconOnly && 'button--icon',
+      this.variant === 'link' && 'button--link',
     );
     const textClassName = buttonTextVariants({
       variant: this.variant,

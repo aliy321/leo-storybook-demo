@@ -15,6 +15,11 @@ import {
 } from '@leo/ui/button';
 import { Icon } from '../../icon/native/icon.native';
 import { ButtonText, TextClassContext } from './ButtonText';
+import { LinkButtonLabel } from './LinkButtonLabel';
+import {
+  buttonNativePressableStyle,
+  buttonNativeTextStyle,
+} from './button.native.layout';
 
 export interface ButtonProps extends ButtonOptions {
   onPress?: () => void;
@@ -59,28 +64,14 @@ export function Button({
   const iconClassName = buttonTextVariants({ variant: resolvedVariant, size: 'sm' });
   const rippleColor = buttonAndroidRippleColor[resolvedVariant];
 
-  const content =
-    children ??
-    (isIconOnly ? (
-      <Icon type={resolvedIconType} size={16} className={iconClassName} decorative />
-    ) : (
-      <>
-        {leftIconType ? (
-          <Icon type={leftIconType} size={16} className={iconClassName} decorative />
-        ) : null}
-        {label ? <ButtonText>{label}</ButtonText> : null}
-        {rightIconType ? (
-          <Icon type={rightIconType} size={16} className={iconClassName} decorative />
-        ) : null}
-      </>
-    ));
-
   const resolvedAccessibilityLabel =
     accessibilityLabel ?? label ?? leftIconType ?? rightIconType ?? (isIconOnly ? 'search' : undefined);
 
-  const iconOnlyStyle: ViewStyle | undefined = isIconOnly
-    ? { width: 40, height: 40, padding: 0, alignItems: 'center', justifyContent: 'center' }
-    : undefined;
+  const pressableLayoutStyle = buttonNativePressableStyle(resolvedVariant, resolvedSize);
+  const labelTextStyle = buttonNativeTextStyle(resolvedVariant);
+
+  const linkStyle: ViewStyle | undefined =
+    resolvedVariant === 'link' ? { overflow: 'visible' } : undefined;
 
   return (
     <TextClassContext.Provider value={textClass}>
@@ -92,9 +83,10 @@ export function Button({
             ? { color: rippleColor, borderless: false }
             : undefined
         }
-        {...({ className: cn('self-start overflow-hidden', buttonVariants({ variant: resolvedVariant, size: resolvedSize }), className) } as object)}
-        style={({ pressed }) => [
-          iconOnlyStyle,
+        {...({ className: cn(buttonVariants({ variant: resolvedVariant, size: resolvedSize }), resolvedVariant === 'link' && 'overflow-visible', className) } as object)}
+        style={({ pressed, hovered }) => [
+          pressableLayoutStyle,
+          linkStyle,
           !disabled ? getPressFeedbackStyle(pressed, resolvedVariant) : undefined,
           style,
         ]}
@@ -103,7 +95,30 @@ export function Button({
         accessibilityHint={accessibilityHint}
         accessibilityState={{ ...accessibilityState, disabled }}
       >
-        {content}
+        {({ pressed, hovered }) =>
+          children ??
+          (isIconOnly ? (
+            <Icon type={resolvedIconType} size={16} className={iconClassName} decorative />
+          ) : (
+            <>
+              {leftIconType ? (
+                <Icon type={leftIconType} size={16} className={iconClassName} decorative />
+              ) : null}
+              {label ? (
+                resolvedVariant === 'link' ? (
+                  <LinkButtonLabel active={pressed || Boolean(hovered)} className={textClass}>
+                    {label}
+                  </LinkButtonLabel>
+                ) : (
+                  <ButtonText style={labelTextStyle}>{label}</ButtonText>
+                )
+              ) : null}
+              {rightIconType ? (
+                <Icon type={rightIconType} size={16} className={iconClassName} decorative />
+              ) : null}
+            </>
+          ))
+        }
       </Pressable>
     </TextClassContext.Provider>
   );

@@ -1,0 +1,14 @@
+@import '../../../../tokens/dist/global.css';
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+[data-slot='alert-meta'] {
+  width: 100%;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 16px;
+}

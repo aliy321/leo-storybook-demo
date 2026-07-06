@@ -1,0 +1,77 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as BadgeStories from '../web/badge.stories';
+
+<Meta title="Components/Badge" of={BadgeStories} />
+
+# Badge
+
+Badge component scaffold — update this overview.
+
+**Supported screens:** Mobile, Tablet, Desktop
+
+## Usage
+
+- Use **default** for the primary surface style.
+- Use **outline** when you need a clear boundary without elevation.
+
+## Variants
+
+<table>
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>default</code></td><td>Card-like surface with subtle shadow</td></tr>
+    <tr><td><code>outline</code></td><td>Bordered surface without shadow</td></tr>
+  </tbody>
+</table>
+
+## Accessibility
+
+- Provide meaningful slotted content or an accessible name when interactive.
+- Disabled state must not trigger actions.
+
+## Implementation
+
+Badge follows the CVA + semantic token pattern shared with Button and Card. Variants are defined once in `packages/ui/src/badge/core/badge.core.ts` and consumed by web (Stencil) and native (React Native) shells.
+
+## Stories
+
+Use **Default** to explore props interactively. Gallery stories below are visual reference only; their Controls are disabled.
+
+### Default
+
+<Canvas of={ BadgeStories.Default } />
+
+### Variants
+
+<Canvas of={ BadgeStories.Variants } />
+
+### Disabled
+
+<Canvas of={ BadgeStories.Disabled } />
+
+## API
+
+### Web Component (`leo-badge`)
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Attribute</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td><code>variant</code></td><td>Surface style</td><td><code>default | outline</code></td><td><code>default</code></td></tr>
+    <tr><td><code>disabled</code></td><td><code>disabled</code></td><td>Disabled state</td><td><code>boolean</code></td><td><code>false</code></td></tr>
+  </tbody>
+</table>
+
+<ArgTypes of={BadgeStories} />
