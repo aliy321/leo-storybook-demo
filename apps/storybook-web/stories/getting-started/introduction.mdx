@@ -15,17 +15,16 @@ import { Meta } from '@storybook/addon-docs/blocks';
 **The design system consists of:**
 
 - Foundation primitives (colors, typography, icons, spacing, elevation)
-- Design tokens compiled from Figma into web CSS and React Native themes
-- Shared UI components with one `cva` style definition across platforms
+- Code-first design tokens compiled into web CSS, React Native themes, and Figma variables
+- Platform-owned UI components with semantic `cva` variants
 - Storybook docs for implementation and QA
 
 ## Monorepo layout
 
 ```text
 packages/tokens   → Figma JSON → global.css + themes.css + RN theme
-packages/ui       → core + web + native component shells
-tooling/web       → Stencil adapter
-tooling/native    → React Native adapter
+packages/web      → Stencil web-component package
+packages/native   → React Native package
 apps/storybook-*  → documentation and previews
 ```
 
@@ -57,9 +56,9 @@ See [Design token](/docs/foundation-design-token--docs) for naming and usage.
 
 ## Using components
 
-Components live in `@leo/ui`. Start from component stories under **Components** in the sidebar, then follow each docs page for props and examples.
+Implementations and their platform CVA definitions live in `@leo/web` and `@leo/native`. Start from component stories under **Components** in the sidebar.
 
-> Components share one variant definition in `core/` — do not duplicate style logic in web or native shells.
+> Keep semantic intent aligned, but let each platform express its own primitive states and size API.
 
 ## Do's and Don'ts
 

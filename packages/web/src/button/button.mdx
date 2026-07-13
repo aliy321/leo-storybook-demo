@@ -1,0 +1,37 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Button is the first v3 web proof component. It adapts the Base/shadcn Button style to a Stencil custom element.
+
+## Scope
+
+- Platform-owned CVA variants beside the Stencil component.
+- Semantic Tailwind v3 classes such as `bg-primary`, `text-primary-foreground`, and `border-border`.
+- Web delivery through `<leo-button>`.
+- Native `<button>` semantics, Shadow DOM slot content, and ripple layered below content.
+
+Icon support is intentionally out of scope until the icon API is reworked.
+
+## Playground
+
+<Canvas of={ButtonStories.Default} />
+
+## Variants
+
+<Canvas of={ButtonStories.Variants} />
+
+## Sizes
+
+<Canvas of={ButtonStories.Sizes} />
+
+## Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+## Props
+
+<ArgTypes of={ButtonStories} />

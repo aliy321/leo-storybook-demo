@@ -1,25 +1,34 @@
-# LEO Design System Next
+# LEO Design System v3
 
-Clean v3 design-system workspace. v2 is a reference catalog for behavior and package shape only; v3 code should stay simple, colocated, and token-driven.
+Tailwind CSS v3 design system with shadcn-style component ownership, Stencil Web Components, React Native components, and code-first design tokens.
 
-## Architecture
+## Workspace
 
 ```text
 packages/
-  tokens/              Figma tokens + Tailwind/NativeWind outputs
-  components/          Colocated component source
-  publish/<name>/      Per-component npm tarballs
-tooling/
-  web/                 Private Stencil adapter/build shell
-  native/              Private RN package facade
+  tokens/   semantic tokens, CSS variables, Tailwind presets, Figma snapshot
+  core/     platform-neutral contracts, types, CVA variants, and cn()
+  web/      Stencil custom elements
+  native/   React Native components
+
 apps/
-  storybook-web/       Web Storybook app (:6006)
-  storybook-native/    RN Storybook app (:6007)
+  storybook-web/     web component explorer on port 6006
+  storybook-native/  React Native web explorer on port 6007
+
+showcases/
+  web/               framework-free custom-element integration
+  native/            React Native integration; Expo gallery grows here later
 ```
 
-Button is the reference component. It must render in both web and RN Storybook, and its styling must come from `cva` + `cn` in `packages/ui/src/button/core/button.core.ts`.
+Dependency direction is one-way:
 
-## Quick Start
+```text
+tokens -> core -> web/native -> storybooks/showcases
+```
+
+## Development
+
+Requires Node.js 22.13 or newer and pnpm 11.
 
 ```bash
 corepack enable
@@ -28,44 +37,25 @@ pnpm build
 pnpm dev
 ```
 
-| Command | Use when | URL |
-|---------|----------|-----|
-| `pnpm dev` / `pnpm dev:both` | Work across web + RN | :6006 + :6007 |
-| `pnpm dev:web` | Web only | http://localhost:6006 |
-| `pnpm dev:rn` | RN only | http://localhost:6007 |
-| `pnpm storybook:web` | Web Storybook only | :6006 |
-| `pnpm storybook:rn` | RN Storybook only | :6007 |
-
-## Styling
-
-- Use `buttonVariants` / `buttonTextVariants` in `core/button.core.ts`.
-- Use semantic classes like `bg-primary`, `text-primary-foreground`, `border-input`, and `ring-ring`.
-- Use `cn()` for class merging.
-- Keep raw Figma token names out of component code.
-
-## Tokens
+Useful commands:
 
 ```bash
-pnpm token:generate
+pnpm dev:web
+pnpm dev:rn
+pnpm typecheck
+pnpm token:verify
 pnpm token:build
+pnpm token:push:dry
+pnpm verify:packages
+pnpm verify:showcases
 ```
 
-Tokens should generate:
-
-- Web CSS variables and utilities in `packages/tokens/dist`.
-- NativeWind config/data in `packages/tokens/rn`.
-- Semantic role-based tokens for components.
-
-## v2 Reference
-
-Use `/Users/allisonloolihoung/Desktop/PROJECTS/leo-design-system-2.x` for product/API reference. Do not copy v2 implementation structure into this repo.
+Token edits under `packages/tokens/tokens/` rebuild web and native outputs during `pnpm dev`. Storybook toolbars switch brand and light/dark modes from the same generated source. Consumers own their Tailwind config and global variable overrides, matching shadcn's development model.
 
 ## Docs
 
 - [Architecture](docs/ARCHITECTURE.md)
-- [Component Authoring](docs/COMPONENT_AUTHORING.md)
-- [Token Pipeline](docs/TOKEN_PIPELINE.md)
-- [Next Steps](docs/NEXT_STEPS.md)
-# leo-storybook-demo
-# leo-storybook-demo
-# leo-storybook-demo
+- [Tokens and Tailwind](docs/TOKENS.md)
+- [Components](docs/COMPONENTS.md)
+
+Storybooks explore component states. Showcases prove real consumer setup. The native showcase becomes the browsable Expo component gallery after the Button path is stable.

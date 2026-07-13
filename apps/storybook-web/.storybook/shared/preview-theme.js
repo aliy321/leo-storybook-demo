@@ -40,22 +40,48 @@ export function parseColorScheme(globals = {}) {
   return colorSchemeOptions.includes(globals.colorScheme) ? globals.colorScheme : 'light';
 }
 
-/*
- * Storybook theme flow:
- * 1. Preview globalTypes expose brand/colorScheme toolbar globals.
- * 2. This helper mirrors those globals onto <html> as data attributes and
- *    light/dark classes, including the initial ?globals= URL state.
- * 3. @leo/tokens/css reads those attributes in themes.css and swaps CSS vars.
- * 4. Preview iframe CSS (preview-head / storybook-overrides) uses var(--background)
- *    on all docs wrappers and canvas roots. Manager chrome is separate and unthemed.
- */
+function applyThemeToSurface(surface, brand, colorScheme) {
+  surface.setAttribute('data-brand', brand);
+  surface.setAttribute('data-color-scheme', colorScheme);
+  surface.classList.toggle('dark', colorScheme === 'dark');
+  surface.classList.toggle('light', colorScheme === 'light');
+}
+
+function clearThemeFromSurface(surface) {
+  surface.removeAttribute('data-brand');
+  surface.removeAttribute('data-color-scheme');
+  surface.classList.remove('dark', 'light');
+}
+
+function isDocsPage() {
+  const query = new URLSearchParams(window.location.search);
+  const storyId = query.get('id');
+
+  return query.get('viewMode') === 'docs' || storyId?.endsWith('--docs') === true;
+}
+
+/* Theme only standalone story roots and Docs canvas surfaces. */
 export function applyTheme(brand, colorScheme) {
   if (typeof document === 'undefined') return;
 
-  document.documentElement.setAttribute('data-brand', brand);
-  document.documentElement.setAttribute('data-color-scheme', colorScheme);
-  document.documentElement.classList.toggle('dark', colorScheme === 'dark');
-  document.documentElement.classList.toggle('light', colorScheme === 'light');
+  clearThemeFromSurface(document.documentElement);
+  clearThemeFromSurface(document.body);
+
+  const storyRoot = document.querySelector('#storybook-root');
+  if (isDocsPage()) {
+    if (storyRoot) clearThemeFromSurface(storyRoot);
+
+    for (const surface of document.querySelectorAll('.docs-story')) {
+      applyThemeToSurface(surface, brand, colorScheme);
+    }
+
+    return;
+  }
+
+  if (storyRoot) {
+    applyThemeToSurface(document.body, brand, colorScheme);
+    applyThemeToSurface(storyRoot, brand, colorScheme);
+  }
 }
 
 function parseGlobalsValue(value) {

@@ -7,15 +7,8 @@
     "noEmit": true,
     "noImplicitAny": false,
     "lib": ["ES2022", "DOM"],
+    "baseUrl": "../..",
     "paths": {
-      "@/components/*": ["../../packages/ui/src/*"],
-      "@/ui/*": ["../../packages/ui/src/*"],
-      "@/lib/*": ["../../packages/ui/src/lib/*"],
-      "@/tokens/*": ["../../packages/tokens/*"],
-      "@/tooling/*": ["../../tooling/*"],
-      "@/apps/*": ["../../apps/*"],
-      "@leo/ui": ["packages/ui/src/index.ts"],
-      "@leo/ui/button": ["packages/ui/src/button/index.ts"],
       "@leo/tokens/css": ["packages/tokens/dist/global.css"],
       "@storybook/web-components": [
         "apps/storybook-web/node_modules/@storybook/web-components/dist/index.d.ts"
@@ -26,7 +19,7 @@
     "stories/**/*",
     ".storybook/**/*",
     "types/**/*.d.ts",
-    "../../packages/ui/src/**/*.stories.ts",
-    "../../packages/ui/src/**/*.mdx"
+    "../../packages/web/src/**/*.stories.ts",
+    "../../packages/web/src/**/*.mdx"
   ]
 }

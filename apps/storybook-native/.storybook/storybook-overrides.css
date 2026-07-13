@@ -403,6 +403,11 @@ pre.prismjs code,
   font-weight: 600 !important;
 }
 
+/* Map the native token family to the web font loaded by Storybook. */
+.font-public-sans-pro {
+  font-family: 'Public Sans', system-ui, sans-serif !important;
+}
+
 /* Alert gallery captions — beat docs prose and accidental heading styles */
 .leo-alert-gallery-label,
 [data-leo-alert-gallery-label] {

@@ -11,15 +11,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "composite": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/components/*": ["packages/ui/src/*"],
-      "@/ui/*": ["packages/ui/src/*"],
-      "@/lib/*": ["packages/ui/src/lib/*"],
-      "@/tokens/*": ["packages/tokens/*"],
-      "@/tooling/*": ["tooling/*"],
-      "@/apps/*": ["apps/*"]
-    }
+    "composite": true
   }
 }

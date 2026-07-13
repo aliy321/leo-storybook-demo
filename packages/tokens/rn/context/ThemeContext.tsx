@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createContext, useContext, useMemo } from 'react';
-import { useColorScheme } from 'nativewind';
 import { getThemes } from '../data/themes';
 
 export interface ThemeContextValue {
@@ -15,40 +14,42 @@ export function useThemeContext(): ThemeContextValue | null {
   return useContext(ThemeContext);
 }
 
-export function getColorFromTheme(colorName: string, brand: string, colorScheme: string): string {
-  const DEFAULT_COLOR = '#d52b1e';
-
-  try {
-    const themes = getThemes(false);
-    const themeVars = themes[brand]?.[colorScheme];
-    if (!themeVars) return DEFAULT_COLOR;
-
-    const cssVarName = colorName.startsWith('--') ? colorName : `--${colorName}`;
-    const themeVarRecord = themeVars as Record<string, string>;
-    if (typeof themeVarRecord === 'object' && themeVarRecord[cssVarName]) {
-      return themeVarRecord[cssVarName];
-    }
-
-    return DEFAULT_COLOR;
-  } catch {
-    return DEFAULT_COLOR;
+export function useRequiredThemeContext(): ThemeContextValue {
+  const context = useThemeContext();
+  if (!context) {
+    throw new Error('A native LEO component must be rendered inside @leo/tokens/rn Theme.');
   }
+  return context;
+}
+
+export function getColorFromTheme(colorName: string, brand: string, colorScheme: string): string {
+  const themes = getThemes(false);
+  const themeVars = themes[brand]?.[colorScheme];
+  if (!themeVars) {
+    throw new Error(`Unknown native token theme: brand=${brand} colorScheme=${colorScheme}`);
+  }
+
+  const cssVarName = colorName.startsWith('--') ? colorName : `--${colorName}`;
+  const value = (themeVars as Record<string, string>)[cssVarName];
+  if (!value) {
+    throw new Error(
+      `Unknown native semantic color: token=${cssVarName} brand=${brand} colorScheme=${colorScheme}`,
+    );
+  }
+  return value;
 }
 
 interface ThemeContextProviderProps {
-  brand?: string;
-  colorScheme?: string;
+  brand: string;
+  colorScheme: string;
   children: React.ReactNode;
 }
 
 export function ThemeContextProvider({
-  brand = 'default',
-  colorScheme: colorSchemeProp,
+  brand,
+  colorScheme,
   children,
 }: ThemeContextProviderProps) {
-  const { colorScheme: systemScheme } = useColorScheme();
-  const colorScheme = colorSchemeProp || systemScheme || 'light';
-
   const contextValue = useMemo<ThemeContextValue>(
     () => ({
       brand,

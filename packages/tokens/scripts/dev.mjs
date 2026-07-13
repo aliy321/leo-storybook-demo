@@ -1,91 +1,63 @@
 #!/usr/bin/env node
-import { execSync, spawn } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pkgRoot = path.resolve(__dirname, '..');
-const workspaceRoot = path.resolve(pkgRoot, '../..');
-const distDir = path.join(pkgRoot, 'dist');
-const sourceGlobalCss = path.join(pkgRoot, 'src', 'global.css');
-const uiSourceDir = path.join(workspaceRoot, 'packages', 'ui', 'src');
+const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const tokenSourceDir = path.join(packageRoot, 'tokens');
+const globalCssPath = path.join(packageRoot, 'src/global.css');
 
-let buildDebounce;
-// Turbo runs tokens#build before dev; tsc --watch still re-emits index.js once on startup.
-let skipNextIndexJs = true;
+let tokenBuildTimer;
+let cssBuildTimer;
 
-function runPostBuild(command = 'node scripts/build.cjs && node scripts/build-tailwind.cjs') {
-  clearTimeout(buildDebounce);
-  buildDebounce = setTimeout(() => {
-    try {
-      execSync(command, { cwd: pkgRoot, stdio: 'inherit' });
-    } catch {
-      // token generation is best-effort during watch; tsc output is the critical path
+function runNodeScripts(scriptNames) {
+  for (const scriptName of scriptNames) {
+    const result = spawnSync(process.execPath, [path.join(packageRoot, 'scripts', scriptName)], {
+      cwd: packageRoot,
+      stdio: 'inherit',
+    });
+    if (result.status !== 0) {
+      throw new Error(`Token watch build failed: script=${scriptName} status=${result.status}`);
     }
-  }, 200);
-}
-
-function watchDist() {
-  if (!fs.existsSync(distDir)) {
-    return;
-  }
-
-  const onChange = filename => {
-    // Regenerate CSS only after JS is written — .d.ts can update before index.js.
-    if (filename === 'index.js') {
-      if (skipNextIndexJs) {
-        skipNextIndexJs = false;
-        return;
-      }
-      runPostBuild();
-    }
-  };
-
-  try {
-    fs.watch(distDir, { recursive: true }, (_event, filename) => onChange(filename));
-  } catch {
-    fs.watch(distDir, (_event, filename) => onChange(filename));
   }
 }
 
-function watchTailwindContent(dir) {
-  if (!fs.existsSync(dir)) {
-    return;
-  }
-
-  const onChange = filename => {
-    if (!filename || !/\.(ts|tsx|mdx|css)$/.test(filename)) {
-      return;
-    }
-    runPostBuild('node scripts/build-tailwind.cjs');
-  };
-
-  try {
-    fs.watch(dir, { recursive: true }, (_event, filename) => onChange(filename));
-  } catch {
-    fs.watch(dir, (_event, filename) => onChange(filename));
-  }
+function scheduleTokenBuild() {
+  clearTimeout(tokenBuildTimer);
+  tokenBuildTimer = setTimeout(() => {
+    runNodeScripts([
+      'validate.cjs',
+      'build.cjs',
+      'build-css.cjs',
+      'generate-figma.cjs',
+    ]);
+  }, 150);
 }
 
-watchDist();
-watchTailwindContent(uiSourceDir);
-
-if (fs.existsSync(sourceGlobalCss)) {
-  fs.watch(sourceGlobalCss, () => runPostBuild('node scripts/build-tailwind.cjs'));
+function scheduleCssBuild() {
+  clearTimeout(cssBuildTimer);
+  cssBuildTimer = setTimeout(() => {
+    runNodeScripts(['build-css.cjs']);
+  }, 150);
 }
 
-const tsc = spawn('tsc', ['-p', 'tsconfig.json', '--watch', '--preserveWatchOutput'], {
-  cwd: pkgRoot,
-  stdio: 'inherit',
-  shell: true,
+function watchDirectory(directoryPath, onChange) {
+  if (!fs.existsSync(directoryPath)) {
+    throw new Error(`Token watch directory does not exist: ${directoryPath}`);
+  }
+  fs.watch(directoryPath, { recursive: true }, (_event, fileName) => {
+    if (fileName) onChange(fileName);
+  });
+}
+
+watchDirectory(tokenSourceDir, (fileName) => {
+  if (fileName.endsWith('.json')) scheduleTokenBuild();
 });
 
-tsc.on('exit', code => {
-  process.exit(code ?? 0);
-});
+if (!fs.existsSync(globalCssPath)) {
+  throw new Error(`Token CSS source does not exist: ${globalCssPath}`);
+}
+fs.watch(globalCssPath, scheduleCssBuild);
 
-process.on('SIGINT', () => {
-  tsc.kill('SIGINT');
-  process.exit(0);
-});
+console.log('Watching canonical token JSON and token CSS.');

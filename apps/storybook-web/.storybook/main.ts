@@ -3,17 +3,18 @@ import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from '@storybook/web-components-vite';
 import { resolve, dirname, basename } from 'path';
 import type { Plugin, ViteDevServer } from 'vite';
+import remarkGfm from 'remark-gfm';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const webDist = resolve(__dirname, '../../../tooling/web/dist');
-const webLoader = resolve(__dirname, '../../../tooling/web/loader');
+const webDist = resolve(__dirname, '../../../packages/web/dist');
+const webLoader = resolve(__dirname, '../../../packages/web/loader');
 const addonDocsPath = getAbsolutePath('@storybook/addon-docs');
 
 function isStencilOutput(file: string) {
   const normalized = file.replace(/\\/g, '/');
-  return normalized.includes('/tooling/web/dist/') || normalized.includes('/tooling/web/loader/');
+  return normalized.includes('/packages/web/dist/') || normalized.includes('/packages/web/loader/');
 }
 
 let reloadTimer: ReturnType<typeof setTimeout> | undefined;
@@ -51,20 +52,29 @@ function leoStencilFullReloadPlugin(): Plugin {
 }
 
 const config: StorybookConfig = {
+  features: {
+    sidebarOnboardingChecklist: false,
+    menuOnboardingChecklist: false,
+  },
   staticDirs: ['../public'],
   stories: [
     '../stories/**/*.mdx',
-    '../../../packages/ui/src/icon/web/icon.stories.ts',
-    '../../../packages/ui/src/button/web/button.stories.ts',
-    '../../../packages/ui/src/card/web/card.stories.ts',
-    '../../../packages/ui/src/button/docs/button.docs.mdx',
-    '../../../packages/ui/src/card/docs/card.docs.mdx',
-    '../../../packages/ui/src/badge/web/badge.stories.ts',
-    '../../../packages/ui/src/badge/docs/badge.docs.mdx',
-    '../../../packages/ui/src/alert/web/alert.stories.ts',
-    '../../../packages/ui/src/alert/docs/alert.docs.mdx',
+    '../../../packages/web/src/button/button.stories.ts',
+    '../../../packages/web/src/button/button.mdx',
   ],
-  addons: [getAbsolutePath("@storybook/addon-links"), getAbsolutePath("@storybook/addon-docs")],
+  addons: [
+    getAbsolutePath('@storybook/addon-links'),
+    {
+      name: getAbsolutePath('@storybook/addon-docs'),
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
+  ],
   framework: {
     name: getAbsolutePath("@storybook/web-components-vite"),
     options: {},
@@ -73,23 +83,8 @@ const config: StorybookConfig = {
     config.resolve = config.resolve ?? {};
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@/components': resolve(__dirname, '../../../packages/ui/src'),
-      '@/ui': resolve(__dirname, '../../../packages/ui/src'),
-      '@/lib': resolve(__dirname, '../../../packages/ui/src/lib'),
-      '@/tokens': resolve(__dirname, '../../../packages/tokens'),
-      '@/tooling': resolve(__dirname, '../../../tooling'),
-      '@/apps': resolve(__dirname, '../../../apps'),
-      '@leo/ui/button': resolve(__dirname, '../../../packages/ui/src/button/index.ts'),
-      '@leo/ui/card': resolve(__dirname, '../../../packages/ui/src/card/index.ts'),
-      '@leo/ui/icon': resolve(__dirname, '../../../packages/ui/src/icon/index.ts'),
-      '@leo/ui/badge': resolve(__dirname, '../../../packages/ui/src/badge/index.ts'),
-      '@leo/ui/alert': resolve(__dirname, '../../../packages/ui/src/alert/index.ts'),
-
-      '@leo/ui': resolve(__dirname, '../../../packages/ui/src/index.ts'),
-      '@leo/web/loader': resolve(__dirname, '../../../tooling/web/loader'),
+      '@leo/web/loader': resolve(__dirname, '../../../packages/web/loader'),
       '@leo/tokens/css': resolve(__dirname, '../../../packages/tokens/dist/global.css'),
-      '@leo/tokens/icons': resolve(__dirname, '../../../packages/tokens/dist/icon-set.js'),
-      '@leo/tokens/illustrations': resolve(__dirname, '../../../packages/tokens/dist/illustration-set.js'),
       '@storybook/addon-docs/blocks': resolve(addonDocsPath, 'dist/blocks.js'),
     };
     config.optimizeDeps = {

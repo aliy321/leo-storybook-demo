@@ -2,16 +2,15 @@ import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path, { dirname } from 'path';
 import webpack from 'webpack';
+import remarkGfm from 'remark-gfm';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const componentsSrc = path.resolve(__dirname, '../../../packages/ui/src');
-const componentsButtonNativeDir = path.resolve(componentsSrc, 'button/native');
+const nativeSrc = path.resolve(__dirname, '../../../packages/native/src');
 
 const monorepoPackages = [
-  path.resolve(__dirname, '../../../tooling/native'),
-  path.resolve(__dirname, '../../../packages/ui/src'),
+  path.resolve(__dirname, '../../../packages/native'),
   path.resolve(__dirname, '../../../packages/tokens/rn'),
 ];
 
@@ -34,20 +33,29 @@ const babelLoaderRule = {
 };
 
 const config: StorybookConfig = {
+  features: {
+    sidebarOnboardingChecklist: false,
+    menuOnboardingChecklist: false,
+  },
   staticDirs: ['../../storybook-web/public'],
   stories: [
     '../../storybook-web/stories/**/*.mdx',
-    '../../../packages/ui/src/icon/native/icon.stories.tsx',
-    '../../../packages/ui/src/button/native/button.stories.tsx',
-    '../../../packages/ui/src/card/native/card.stories.tsx',
-    '../../../packages/ui/src/button/docs/button.docs.native.mdx',
-    '../../../packages/ui/src/card/docs/card.docs.native.mdx',
-    '../../../packages/ui/src/badge/native/badge.stories.tsx',
-    '../../../packages/ui/src/badge/docs/badge.docs.native.mdx',
-    '../../../packages/ui/src/alert/native/alert.stories.tsx',
-    '../../../packages/ui/src/alert/docs/alert.docs.native.mdx',
+    '../../../packages/native/src/button/button.stories.tsx',
+    '../../../packages/native/src/button/button.mdx',
   ],
-  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
+  addons: [
+    '@storybook/addon-links',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
+  ],
   framework: {
     name: '@storybook/react-webpack5',
     options: {},
@@ -64,22 +72,13 @@ const config: StorybookConfig = {
       'nativewind/preset': path.resolve(__dirname, './nativewind-preset-mock.js'),
       'nativewind': path.resolve(__dirname, './nativewind-mock.js'),
       'react-native-css-interop': path.resolve(__dirname, './nativewind-mock.js'),
-      '@/components': path.resolve(__dirname, '../../../packages/ui/src'),
-      '@/ui': path.resolve(__dirname, '../../../packages/ui/src'),
-      '@/lib': path.resolve(__dirname, '../../../packages/ui/src/lib'),
+      '@/components': nativeSrc,
       '@/tokens': path.resolve(__dirname, '../../../packages/tokens'),
-      '@/tooling': path.resolve(__dirname, '../../../tooling'),
       '@/apps': path.resolve(__dirname, '../../../apps'),
       '@leo/tokens/css': path.resolve(__dirname, '../../../packages/tokens/dist/global.css'),
-      '@leo/tokens/icons': path.resolve(__dirname, '../../../packages/tokens/dist/icon-set.js'),
-      '@leo/tokens/illustrations': path.resolve(__dirname, '../../../packages/tokens/dist/illustration-set.js'),
-      '@leo/ui/icon': path.resolve(__dirname, '../../../packages/ui/src/icon/index.ts'),
-      '@leo/ui/card': path.resolve(__dirname, '../../../packages/ui/src/card/index.ts'),
-      '@leo/ui/badge': path.resolve(__dirname, '../../../packages/ui/src/badge/index.ts'),
-      '@leo/ui/alert': path.resolve(__dirname, '../../../packages/ui/src/alert/index.ts'),
 
       '@leo/tokens/rn': path.resolve(__dirname, '../../../packages/tokens/rn/index.js'),
-      '@leo/native/button': path.resolve(componentsButtonNativeDir, 'button.native.tsx'),
+      '@leo/native/button$': path.resolve(nativeSrc, 'button/Button.tsx'),
     };
     webpackConfig.resolve.extensions = [
       '.web.tsx',

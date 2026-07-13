@@ -22,20 +22,6 @@ Toggle **Brand** and **Scheme** in the Storybook toolbar to preview how tokens a
 
 Semantic tokens **auto-switch** when either axis changes. There is no manual "invert" toggle — scheme is not a user-facing action, it is a context attribute.
 
-### About "inverse" (legacy)
-
-In v2, names like `inverse`, `inverse-active`, and `inverse-muted` described **contrast relationships** — text on colored backgrounds, or colors that flip between light and dark schemes. They were **not** a "invert theme" button.
-
-In v3, use semantic roles instead:
-
-- `inverse-active` → **`foreground`** (default body text)
-- `inverse` → **`primary-foreground`** (text on primary/colored backgrounds)
-- `inverse-muted` → **`muted`** (subtle surfaces)
-
-Color scheme switching is handled by `data-color-scheme="light|dark"`. Tokens resolve to the correct value per scheme automatically.
-
----
-
 ## How to read semantic token names
 
 Semantic tokens describe **what the color is for**, not what it looks like:
@@ -59,6 +45,14 @@ Semantic tokens describe **what the color is for**, not what it looks like:
 | `ring` | Focus rings | `ring-ring` |
 | `card` | Elevated surfaces (cards, modals) | `bg-card` |
 | `card-foreground` | Text on card surfaces | `text-card-foreground` |
+| `popover` | Floating surfaces | `bg-popover` |
+| `popover-foreground` | Text on floating surfaces | `text-popover-foreground` |
+| `success` | Successful status | `bg-success` |
+| `success-foreground` | Text on successful status | `text-success-foreground` |
+| `warning` | Warning status | `bg-warning` |
+| `warning-foreground` | Text on warning status | `text-warning-foreground` |
+| `info` | Informational status | `bg-info` |
+| `info-foreground` | Text on informational status | `text-info-foreground` |
 
 ```tsx
 // All utilities bind to the same CSS variable
@@ -92,6 +86,14 @@ Values below reflect the active brand and scheme from the Storybook toolbar.
     ['ring', 'Focus ring'],
     ['card', 'Cards, modals'],
     ['card-foreground', 'Text on cards'],
+    ['popover', 'Floating surfaces'],
+    ['popover-foreground', 'Text on floating surfaces'],
+    ['success', 'Success status'],
+    ['success-foreground', 'Text on success'],
+    ['warning', 'Warning status'],
+    ['warning-foreground', 'Text on warning'],
+    ['info', 'Information status'],
+    ['info-foreground', 'Text on information'],
   ].map(([token, desc]) => (
     <div key={token} style={{ width: 110 }}>
       <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: `var(--${token})`, border: '1px solid var(--border)' }} />
@@ -116,97 +118,6 @@ Values below reflect the active brand and scheme from the Storybook toolbar.
   <Text className="text-destructive">Error state</Text>
 </View>
 ```
-
----
-
-## Extended tokens
-
-These Figma tokens remain available for status, typography hierarchy, and interactive states. Prefer semantic tokens for standard UI surfaces.
-
-### Status colors
-
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
-  {[
-    ['info', 'Info state'],
-    ['info-muted', 'Info background'],
-    ['error', 'Error (alias → destructive)'],
-    ['error-muted', 'Error background'],
-    ['warning', 'Warning state'],
-    ['warning-muted', 'Warning background'],
-    ['success', 'Success state'],
-    ['success-muted', 'Success background'],
-  ].map(([token, desc]) => (
-    <div key={token} style={{ width: 110 }}>
-      <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: `var(--${token})`, border: token.includes('muted') ? '1px solid var(--border)' : undefined }} />
-      <strong style={{ fontSize: 11, color: 'var(--foreground)' }}>{token}</strong>
-      <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{desc}</div>
-    </div>
-  ))}
-</div>
-
-### Typography colors
-
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
-  {[
-    ['display', 'Large headlines'],
-    ['heading', 'Section titles (alias → foreground)'],
-    ['paragraph', 'Body (alias → accent-foreground)'],
-    ['footnote', 'Small text'],
-  ].map(([token, desc]) => (
-    <div key={token} style={{ width: 110 }}>
-      <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: 'var(--card)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ color: `var(--${token})`, fontWeight: 700, fontSize: 14 }}>Aa</span>
-      </div>
-      <strong style={{ fontSize: 11, color: 'var(--foreground)' }}>{token}</strong>
-      <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{desc}</div>
-    </div>
-  ))}
-</div>
-
-### Interactive states
-
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
-  {[
-    ['active', 'Active (alias → ring)'],
-    ['hover', 'Hover state'],
-    ['pressed', 'Pressed state'],
-    ['focused', 'Focus ring'],
-    ['selected', 'Selected item'],
-    ['disabled', 'Disabled (alias → muted-foreground)'],
-  ].map(([token, desc]) => (
-    <div key={token} style={{ width: 110 }}>
-      <div style={{ height: 50, borderRadius: 8, marginBottom: 4, background: `var(--${token})`, border: '1px solid var(--border)' }} />
-      <strong style={{ fontSize: 11, color: 'var(--foreground)' }}>{token}</strong>
-      <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>{desc}</div>
-    </div>
-  ))}
-</div>
-
----
-
-## Migration: v2 legacy → v3 semantic
-
-Deprecated legacy names still resolve (backward compat) but **should not be used in new code**.
-
-| Legacy (v2) | Semantic (v3) | When to use |
-|-------------|-------------|-------------|
-| `canvas` | `background` | Page / app shell background |
-| `surface` | `card` | Cards, modals, elevated panels |
-| `inverse-active` | `foreground` | Default body text |
-| `inverse` | `primary-foreground` | Text on primary or colored backgrounds |
-| `inverse-muted` | `muted` | Subtle neutral surfaces |
-| `default` | `accent` | Hover states, highlight surfaces |
-| `default-subtle` | `muted` | Lighter neutral fills |
-| `default-strong` | `muted-foreground` | Stronger de-emphasized text |
-| `disabled-muted` | `muted` | Disabled backgrounds |
-| `disabled` | `muted-foreground` | Disabled text |
-| `paragraph` | `accent-foreground` | Secondary body text |
-| `heading` | `foreground` | Headings (same as default text in light) |
-| `error` | `destructive` | Error actions and text |
-| `active` | `ring` | Focus ring color |
-| `inverse-active` (on inverse bg) | `secondary` | Secondary button surfaces |
-
-**Not migrated** — keep using these extended tokens: `display`, `footnote`, `info`, `warning`, `success`, `note`, `featured`, `hover`, `pressed`, `selected`, and their `-muted` variants.
 
 ---
 
@@ -247,7 +158,6 @@ Primitive colors are **static hex values** that do not change with theme. Use th
 
 ### Don't
 
-- Don't use legacy names (`canvas`, `inverse`, `inverse-active`) in new code
-- Don't treat "inverse" as a theme toggle — use `data-color-scheme` instead
+- Don't invent aliases outside `component-tokens.json`
 - Don't hardcode hex when a semantic token exists
 - Don't use primitive palette names for theme-aware surfaces

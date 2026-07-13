@@ -32,18 +32,11 @@ const preview: Preview = {
           'Spacing',
           'Shadows',
           'Grid System',
-          'Iconography',
-          'Illustration',
-          'Imagery',
         ];
         const typographyOrder = ['Overview', 'Default font', 'Display font'];
-        const buttonOrder = ['Docs', 'Default', 'Variants', 'Sizes', 'Disabled', 'Icons', 'Bilingual'];
-        const cardOrder = ['Docs', 'Default', 'Variants', 'Disabled', 'Clickable'];
-        const alertOrder = ['Docs', 'Default', 'Variants'];
+        const buttonOrder = ['Docs', 'Default', 'Variants', 'Sizes', 'Disabled', 'Bilingual'];
         const componentOrderByTitle = {
           'Components/Button': buttonOrder,
-          'Components/Card': cardOrder,
-          'Components/Alert': alertOrder,
         };
         const docsFirstOrder = ['Docs'];
         const rank = (values, value) => {

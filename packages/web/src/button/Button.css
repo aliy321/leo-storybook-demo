@@ -1,0 +1,108 @@
+/* Shadow DOM encapsulation: only Button utility classes are bundled. */
+@import './button.generated.css';
+
+:host {
+  display: inline-flex;
+}
+
+button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  color: inherit;
+  background-color: transparent;
+  border-style: solid;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus {
+  outline: none;
+}
+
+button[aria-haspopup]:active {
+  transform: none;
+}
+
+.button-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: auto;
+}
+
+.button-ripple {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  -webkit-mask-image: -webkit-radial-gradient(circle, #fff, #000);
+}
+
+.button-ripple--on-dark {
+  color: rgb(255 255 255 / 0.45);
+}
+
+.button-ripple--on-light {
+  color: rgb(var(--primary-rgb) / 0.2);
+}
+
+.button-ripple .ripple {
+  position: absolute;
+  border-radius: 100%;
+  background: currentColor;
+  opacity: 0.2;
+  width: 0;
+  height: 0;
+  transform: scale(0);
+  transition:
+    transform 0.4s ease-out,
+    opacity 0.4s ease-out;
+  pointer-events: none;
+  user-select: none;
+}
+
+.button-ripple .ripple.held {
+  opacity: 0.4;
+  transform: scale(1);
+}
+
+.button-ripple .ripple.done {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-ripple .ripple {
+    transition: none;
+  }
+}
+
+::slotted([data-icon]) {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+}
+
+button[class*='size-6'] ::slotted([data-icon]) {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+button[class*='size-7'] ::slotted([data-icon]) {
+  width: 0.875rem;
+  height: 0.875rem;
+}

@@ -122,9 +122,8 @@ Supported brands: `default`, `agency`, `takaful`. Schemes: `light`, `dark`.
 
 ```tsx
 <Theme
-  name="default | agency | takaful"
-  colorScheme="light | dark"  // optional; falls back to system
-  loadingComponent={<MyLoader />}  // optional
+  name="default"
+  colorScheme="light"
 >
   {children}
 </Theme>
@@ -132,9 +131,8 @@ Supported brands: `default`, `agency`, `takaful`. Schemes: `light`, `dark`.
 
 | Prop | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `name` | `'default' \| 'agency' \| 'takaful'` | `'default'` | Brand theme |
-| `colorScheme` | `'light' \| 'dark'` | system | Override color scheme |
-| `loadingComponent` | `ReactNode` | `ActivityIndicator` | Custom loading UI while fonts load |
+| `name` | `'default' \| 'agency' \| 'takaful'` | required | Brand theme |
+| `colorScheme` | `'light' \| 'dark'` | required | Color scheme |
 | `style` | `ViewStyle` | — | Additional container styles |
 
 ---

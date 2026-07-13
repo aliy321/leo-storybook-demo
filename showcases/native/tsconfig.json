@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "paths": {
+      "@leo/native/button": ["../../packages/native/src/button/Button.tsx"],
+      "@leo/tokens/rn": ["../../packages/tokens/rn/index.d.ts"]
+    }
+  },
+  "include": ["App.tsx", "nativewind-env.d.ts"]
+}

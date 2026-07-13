@@ -10,6 +10,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@leo/native": "workspace:*",
+    "@leo/tokens": "workspace:*",
     "fbjs": "^3.0.5",
     "nativewind": "^4.2.1",
     "react": "18.3.1",
@@ -22,10 +24,10 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
-    "@storybook/addon-docs": "^10.4.6",
-    "@storybook/addon-links": "^10.4.6",
-    "@storybook/react": "^10.4.6",
-    "@storybook/react-webpack5": "^10.4.6",
+    "@storybook/addon-docs": "^10.5.0",
+    "@storybook/addon-links": "^10.5.0",
+    "@storybook/react": "^10.5.0",
+    "@storybook/react-webpack5": "^10.5.0",
     "@types/react": "~18.3.0",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
@@ -33,7 +35,8 @@
     "postcss": "^8.4.49",
     "postcss-loader": "^8.1.1",
     "react-native": "0.76.9",
-    "storybook": "^10.4.6",
+    "remark-gfm": "^4.0.1",
+    "storybook": "^10.5.0",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.9.2",
     "webpack": "^5.97.0"

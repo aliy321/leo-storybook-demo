@@ -1,13 +1,11 @@
 import type { Preview } from '@storybook/react';
 import '@leo/tokens/css';
+import './global.css';
 import './storybook-overrides.css';
-import { Theme } from '@leo/tokens/rn';
 import {
   applyThemeFromGlobals,
   brandGlobalType,
   colorSchemeGlobalType,
-  parseBrand,
-  parseColorScheme,
   subscribeThemeGlobals,
   themeParameters,
 } from '../../storybook-web/.storybook/shared/preview-theme.js';
@@ -20,16 +18,8 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const brand = parseBrand(context.globals);
-      const colorScheme = parseColorScheme(context.globals);
-
       applyThemeFromGlobals(context.globals);
-
-      return (
-        <Theme name={brand} colorScheme={colorScheme} style={{ flex: 1, alignSelf: 'stretch', minHeight: '100%' }}>
-          <Story />
-        </Theme>
-      );
+      return <Story />;
     },
   ],
   parameters: {
@@ -51,18 +41,11 @@ const preview: Preview = {
           'Spacing',
           'Shadows',
           'Grid System',
-          'Iconography',
-          'Illustration',
-          'Imagery',
         ];
         const typographyOrder = ['Overview', 'Default font', 'Display font'];
-        const buttonOrder = ['Docs', 'Default', 'Variants', 'Sizes', 'Disabled', 'Icons', 'Bilingual'];
-        const cardOrder = ['Docs', 'Default', 'Variants', 'Disabled', 'Clickable'];
-        const alertOrder = ['Docs', 'Default', 'Variants'];
+        const buttonOrder = ['Docs', 'Default', 'Variants', 'Sizes', 'Disabled', 'Bilingual'];
         const componentOrderByTitle = {
           'Components/Button': buttonOrder,
-          'Components/Card': cardOrder,
-          'Components/Alert': alertOrder,
         };
         const docsFirstOrder = ['Docs'];
         const rank = (values, value) => {

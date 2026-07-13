@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const loaderJs = path.resolve(__dirname, '../../../tooling/web/dist/esm/loader.js');
+const loaderJs = path.resolve(__dirname, '../../../packages/web/dist/esm/loader.js');
 const timeoutMs = 120_000;
 const pollMs = 200;
 

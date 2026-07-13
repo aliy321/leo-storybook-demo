@@ -3,44 +3,43 @@
   "version": "3.0.0",
   "description": "Shared design tokens for web and native",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
     "./css": "./dist/global.css",
-    "./tailwind": "./dist/tailwind.config.cjs",
-    "./rn": "./rn/index.js",
+    "./tailwind": "./dist/tailwind.preset.cjs",
+    "./tailwind/native": "./rn/tailwind.preset.cjs",
+    "./figma": "./dist/figma.variables.json",
+    "./rn": {
+      "types": "./rn/index.d.ts",
+      "default": "./rn/index.js"
+    },
     "./rn/tailwind.config.js": "./rn/tailwind.config.cjs",
     "./rn/tailwind.config.cjs": "./rn/tailwind.config.cjs",
     "./rn/data/colors": "./rn/data/colors.js",
     "./rn/data/themes": "./rn/data/themes.js",
-    "./rn/data/typography": "./rn/data/typography.js",
-    "./icons": "./dist/icon-set.js",
-    "./icons/map": {
-      "types": "./dist/icons/map.d.ts",
-      "import": "./dist/icons/map.js"
-    },
-    "./illustrations": "./dist/illustration-set.js"
+    "./rn/data/themes.raw": "./rn/data/themes.raw.json",
+    "./rn/data/typography": "./rn/data/typography.js"
   },
   "files": ["dist", "rn", "tokens"],
   "publishConfig": {
     "access": "restricted"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && node scripts/build.cjs && node scripts/build-tailwind.cjs && node scripts/build-icons.cjs && node scripts/build-illustrations.cjs",
+    "build": "node scripts/validate.cjs && node ../../scripts/clean-package-output.cjs packages/tokens/dist && node scripts/build.cjs && node scripts/build-css.cjs && node scripts/generate-figma.cjs",
     "dev": "node scripts/dev.mjs",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "token:fetch": "node scripts/fetch.cjs",
-    "token:build": "node scripts/build.cjs && node scripts/build-tailwind.cjs && node scripts/build-icons.cjs && node scripts/build-illustrations.cjs",
-    "token:verify": "node scripts/verify.cjs",
-    "token:generate": "node scripts/fetch.cjs && node scripts/build.cjs && node scripts/build-tailwind.cjs && node scripts/build-icons.cjs && node scripts/build-illustrations.cjs"
+    "typecheck": "node scripts/validate.cjs",
+    "token:pull": "node scripts/fetch.cjs",
+    "token:build": "node scripts/validate.cjs && node ../../scripts/clean-package-output.cjs packages/tokens/dist && node scripts/build.cjs && node scripts/build-css.cjs && node scripts/generate-figma.cjs",
+    "token:verify": "node scripts/validate.cjs",
+    "token:push": "node scripts/push-figma.cjs",
+    "token:push:dry": "node scripts/push-figma.cjs --dry-run"
   },
   "dependencies": {
     "dotenv": "^17.2.3"
+  },
+  "peerDependencies": {
+    "nativewind": ">=4.0.0",
+    "react": ">=18.0.0",
+    "react-native": ">=0.76.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",

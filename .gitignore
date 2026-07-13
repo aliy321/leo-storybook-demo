@@ -4,11 +4,12 @@ dist
 .turbo
 *.tsbuildinfo
 *.log
+.env.local
 .DS_Store
 .expo
 storybook-static
-tooling/web/.stencil
-tooling/web/loader
-tooling/web/src/components.d.ts
-tooling/web/www
-tooling/packages
+packages/web/.stencil
+packages/web/loader
+packages/web/src/components.d.ts
+packages/web/www
+packages/web/src/**/*.generated.css

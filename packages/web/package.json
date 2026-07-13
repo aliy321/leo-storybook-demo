@@ -1,0 +1,51 @@
+{
+  "name": "@leo/web",
+  "version": "3.0.0",
+  "private": true,
+  "description": "All web components — single Stencil build",
+  "sideEffects": false,
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./button": {
+      "types": "./dist/components/leo-button.d.ts",
+      "import": "./dist/components/leo-button.js",
+      "default": "./dist/components/leo-button.js"
+    },
+    "./loader": {
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "node scripts/build-button-css.cjs && stencil build",
+    "dev": "node scripts/dev-with-deps.mjs",
+    "typecheck": "tsc -p tsconfig.check.json --noEmit"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@leo/tokens": "workspace:*",
+    "@stencil/core": "4.23.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.9.2"
+  }
+}

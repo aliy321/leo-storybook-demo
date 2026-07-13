@@ -1,0 +1,37 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Button is the first v3 native proof component. It follows the React Native Reusables composition with ripple added on top.
+
+## Scope
+
+- Platform-owned CVA variants beside the React Native component.
+- Native rendering through `Pressable` and text styling through `TextClassContext`.
+- Semantic token classes compatible with NativeWind v4 and Tailwind v3.
+- Android ripple layered over the reusable-style contract.
+
+Icon support is intentionally out of scope until the icon API is reworked.
+
+## Playground
+
+<Canvas of={ButtonStories.Default} />
+
+## Variants
+
+<Canvas of={ButtonStories.Variants} />
+
+## Sizes
+
+<Canvas of={ButtonStories.Sizes} />
+
+## Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+## Props
+
+<ArgTypes of={ButtonStories.Default} />

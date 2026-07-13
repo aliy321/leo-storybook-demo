@@ -8,9 +8,9 @@
     "lib": ["ES2022", "DOM"],
     "noEmit": true,
     "noImplicitAny": false,
+    "baseUrl": "../..",
     "paths": {
-      "@leo/ui": ["packages/ui/src/index.ts"],
-      "@leo/ui/button": ["packages/ui/src/button/index.ts"],
+      "@leo/tokens/rn": ["packages/tokens/rn/index.d.ts"],
       "@storybook/react": [
         "apps/storybook-native/node_modules/@storybook/react/dist/index.d.ts"
       ],
@@ -29,8 +29,8 @@
     "../storybook-web/.storybook/shared/theme.ts",
     "nativewind-env.d.ts",
     "types/**/*.d.ts",
-    "../../packages/ui/src/**/*.stories.tsx",
-    "../../packages/ui/src/button/native/**/*.tsx",
-    "../../packages/ui/src/**/*.mdx"
+    "../../packages/native/src/**/*.stories.tsx",
+    "../../packages/native/src/button/**/*.tsx",
+    "../../packages/native/src/**/*.mdx"
   ]
 }

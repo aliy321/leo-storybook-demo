@@ -5,6 +5,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "loader/**", "storybook-static/**", "rn/**"]
     },
+    "@leo/native#build": {
+      "outputs": []
+    },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,
@@ -12,21 +15,6 @@
     },
     "@leo/tokens#dev": {
       "dependsOn": ["@leo/tokens#build"],
-      "cache": false,
-      "persistent": true
-    },
-    "@leo/web#dev": {
-      "dependsOn": ["@leo/ui#build"],
-      "cache": false,
-      "persistent": true
-    },
-    "@leo/storybook-web#dev": {
-      "dependsOn": ["@leo/ui#build"],
-      "cache": false,
-      "persistent": true
-    },
-    "@leo/storybook-native#dev": {
-      "dependsOn": ["@leo/ui#build"],
       "cache": false,
       "persistent": true
     },

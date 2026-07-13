@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES2022"],
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "incremental": false,
+    "baseUrl": "../..",
+    "paths": {
+      "@leo/tokens/rn": ["packages/tokens/rn/index.d.ts"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "nativewind-env.d.ts"
+  ],
+  "exclude": ["**/*.stories.tsx", "**/*.mdx"]
+}

@@ -1,79 +1,65 @@
 # Architecture
 
-v3 is a clean build, using v2 only as reference material.
+## Dependency Flow
 
 ```text
-@leo/tokens
-  -> @leo/ui
-    -> tooling web adapter
-    -> tooling native adapter
-    -> apps/storybook-*
-      -> publish package
+              @leo/tokens
+               /       \
+          @leo/web   @leo/native
+              |          |
+          web apps   native apps
 ```
+
+Storybooks and showcases consume packages. They do not own component implementations.
+
+## Package Ownership
+
+### `@leo/tokens`
+
+Owns code-first primitive tokens, semantic roles, theme modes, generated CSS variables, Tailwind v3 presets, NativeWind theme data, and the generated Figma variable snapshot.
+
+### `@leo/web`
+
+Owns Stencil components and their web-specific CVA definitions. Stencil compiles these sources into standards-based custom elements such as `<leo-button>`; web consumers do not need React or Base UI.
+
+Each component lives under `packages/web/src/<component>/` with its styles, behavior, story, and focused docs. Direct exports such as `@leo/web/button` let consumers register only the custom elements they use.
+
+Button utility CSS is generated from Button source only and ships inside its Shadow DOM output. Consumer global Tailwind utilities are not bundled.
+
+### `@leo/native`
+
+Owns React Native components and their NativeWind CVA definitions. Components use React Native primitives and generated semantic values from `@leo/tokens/rn`.
+
+Subpath exports such as `@leo/native/button` let consumers import only what they use.
+
+## Why Variants Are Platform-Owned
+
+Web and React Native use different primitives, states, selectors, accessibility APIs, and size sets. One shared CVA would hide those differences and couple both packages.
+
+Semantic intent stays aligned where useful:
+
+```text
+variant: default | destructive | outline | secondary | ghost | link
+web:     Stencil <button> + Base/shadcn-style CVA
+native:  Pressable + React Native Reusables-style CVA
+```
+
+There is no `@leo/core` package. Small utilities such as `cn()` stay beside each platform implementation until multiple components prove a stable shared abstraction is needed.
+
+## Apps And Showcases
+
+- Web Storybook loads Stencil output and web stories from `@leo/web`.
+- Native Storybook loads React Native stories from `@leo/native` through React Native Web.
+- Both import `@leo/tokens/css` and use the same brand and color-scheme toolbar globals.
+- `showcases/web` is the smallest framework-free custom-element consumer.
+- `showcases/native` is the React Native integration proof and future Expo component gallery.
+
+Showcases own their Tailwind configs. This proves the intended application experience: install presets, import token variables once, then override semantic CSS variables in application globals.
 
 ## Current Scope
 
-- Button, Card, and Icon are active components.
-- Icon set: 347 SVGs → `@leo/tokens/icons` (build via `scripts/build-icons.cjs`).
-- Button and Card must display in web Storybook (`:6006`) and RN Storybook (`:6007`).
-- Component styling is authored once with `cva` in `packages/ui/src/<name>/core/<name>.core.ts`.
-- v2 components are ported for visual parity and API familiarity, not as 1:1 code copies — use semantic tokens, CVA, and the shared `packages/ui` shape (see Card as the reference POC).
-- Tokens come from Figma JSON and compile into web Tailwind CSS plus RN NativeWind config/data.
-
-## Component Shape
+Button is the only active component. More components, icons, registry tooling, and the Expo gallery come after this path remains stable:
 
 ```text
-packages/ui/src/<name>/
-  core/
-    <name>.core.ts
-    <name>.types.ts
-  web/
-    <name>.web.tsx
-    <name>.web.css
-    <name>.stories.ts
-  native/
-    <name>.native.tsx
-    <name>.stories.tsx
-  docs/
-    <name>.docs.mdx
-    <name>.docs.native.mdx
-  index.ts
+code tokens -> platform CVA -> implementation -> Storybook -> showcase -> Figma snapshot
 ```
-
-## Storybook layout
-
-Shared docs and sidebar order live in one place:
-
-```text
-apps/storybook-web/stories/     → Getting Started + Foundation MDX (shared by both Storybooks)
-apps/storybook-web/.storybook/shared/theme.ts → Manager + docs theme (v2 pink shell, DXS logo)
-apps/storybook-web/.storybook/shared/preview-theme.js → Shared preview globals + DOM theme subscription
-apps/storybook-web/.storybook/preview.ts     → Inline `storySort` (SB 10 static analysis requirement)
-```
-
-### Storybook preview theme
-
-Web and native Storybooks share `apps/storybook-web/.storybook/shared/preview-theme.js` (plain JS so native webpack can import it):
-
-- `brandGlobalType` / `colorSchemeGlobalType` — toolbar `globalTypes`
-- `brandOptions` / `colorSchemeOptions` — allowed values
-- `parseBrand(globals)` / `parseColorScheme(globals)` — validated toolbar state
-- `applyTheme(brand, colorScheme)` — sets `data-brand`, `data-color-scheme`, and `light`/`dark` on `<html>`
-- `subscribeThemeGlobals()` — applies theme on load (including `?globals=` URL) and on `globalsUpdated`
-- `themeParameters` — shared preview `controls` defaults
-
-Each preview calls `subscribeThemeGlobals()` at module load. Framework-specific decorators stay in `preview.ts` (Stencil `story()`) and `preview.tsx` (RN `<Theme>`). Docs/manager chrome still uses `shared/theme.ts` and does **not** follow token globals — that is expected. The **preview iframe** is the full themed surface: `preview-head.html` and native `storybook-overrides.css` set `var(--background)` / `var(--foreground)` on `html`, docs wrappers (`.sbdocs-wrapper`, `.sbdocs-content`, etc.), and canvas roots so dark mode fills the entire iframe, not just the inner content block.
-
-- Web Storybook (`:6006`) and native Storybook (`:6007`) both read the same MDX stories.
-- `sidebar.showRoots: true` matches v2 grouped sidebar roots.
-- Foundation pages are stubs until token specimens are wired in from Figma.
-
-
-- `core/` owns variants, class composition, shared types, and shared accessibility decisions.
-- `web/` owns Stencil/Shadow DOM details only.
-- `native/` owns React Native details only.
-- `docs/` stays colocated with the component.
-- Do not duplicate style logic across web and native shells.
-- Do not copy v2 component package structure.
-- Keep private build adapters out of `packages/`; put them under `tooling/`.
-- Keep preview apps under `apps/`.

@@ -7,15 +7,19 @@
     "build": "storybook build",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@leo/tokens": "workspace:*",
+    "@leo/web": "workspace:*"
+  },
   "devDependencies": {
-    "@storybook/addon-links": "^10.4.6",
-    "@storybook/web-components": "^10.4.6",
-    "@storybook/web-components-vite": "^10.4.6",
+    "@storybook/addon-docs": "^10.5.0",
+    "@storybook/addon-links": "^10.5.0",
+    "@storybook/web-components": "^10.5.0",
+    "@storybook/web-components-vite": "^10.5.0",
     "lit": "^3.2.0",
-    "storybook": "^10.4.6",
+    "remark-gfm": "^4.0.1",
+    "storybook": "^10.5.0",
     "typescript": "~5.9.2",
-    "vite": "^6.0.0",
-    "@storybook/addon-docs": "^10.4.6"
+    "vite": "^6.0.0"
   }
 }

@@ -173,86 +173,87 @@ const SHADCN_SEMANTIC_KEYS = [
   'ring',
   'card',
   'card-foreground',
+  'popover',
+  'popover-foreground',
+  'success',
+  'success-foreground',
+  'warning',
+  'warning-foreground',
+  'info',
+  'info-foreground',
 ];
 
 /**
- * Load component-token config (semantic roles + legacy alias map)
+ * Load the required semantic component-token contract.
  */
 function loadComponentTokenConfig() {
   const filePath = path.join(tokensDir, 'component-tokens.json');
   if (!fs.existsSync(filePath)) {
-    console.warn('  ⚠️  component-tokens.json not found — skipping semantic role layer');
-    return { roles: {}, legacyAliases: {} };
+    throw new Error(`Component token contract does not exist: ${filePath}`);
   }
   const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   return {
-    roles: data.roles ?? {},
-    legacyAliases: data.legacyAliases ?? {},
+    requiredColorRoles: data.requiredColorRoles,
+    roles: data.roles,
+    foundations: data.foundations,
+  };
+}
+
+function formatRadiusValue(value, offset) {
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue)) {
+    throw new TypeError(`Radius value must be numeric: value=${String(value)}`);
+  }
+
+  const adjustedValue = Math.max(0, numericValue + offset);
+  return adjustedValue === 0 ? '0' : `${adjustedValue}px`;
+}
+
+function resolveFoundationValues(componentTokenConfig, dimensions) {
+  const radiusKey = componentTokenConfig.foundations.radius;
+  const radiusValue = dimensions.borderRadius[radiusKey];
+  if (radiusValue === undefined) {
+    throw new Error(`Unable to resolve foundation radius primitive: ${radiusKey}`);
+  }
+
+  return {
+    ...componentTokenConfig,
+    foundationValues: {
+      radius: formatRadiusValue(radiusValue, 0),
+      'radius-sm': formatRadiusValue(radiusValue, -4),
+      'radius-md': formatRadiusValue(radiusValue, -2),
+      'radius-lg': formatRadiusValue(radiusValue, 0),
+      'radius-xl': formatRadiusValue(radiusValue, 4),
+    },
   };
 }
 
 /**
- * Build theme color map with semantic tokens as primary API.
- * Figma legacy names become deprecated aliases pointing at semantic vars.
- * @param {'css' | 'resolved'} format - css emits var(--ref) for aliases; resolved emits hex for RN
+ * Build the public theme map from explicit semantic roles.
  */
-function buildThemeColorMap(figmaColors, { roles, legacyAliases }, format = 'css') {
+function buildThemeColorMap(figmaColors, { roles }) {
   if (!roles || !Object.keys(roles).length) {
-    return { ...figmaColors };
+    throw new Error('Component token contract must define semantic roles.');
   }
 
   const semantic = {};
   for (const [role, figmaKey] of Object.entries(roles)) {
     const sourceKey = String(figmaKey).replace(/^--/, '');
-    semantic[role] = figmaColors[sourceKey] ?? figmaColors[role] ?? '';
-  }
-
-  const roleSourceKeys = new Set(
-    Object.values(roles).map(key => String(key).replace(/^--/, '')),
-  );
-  const legacyAliasKeys = new Set(Object.keys(legacyAliases));
-
-  const extended = {};
-  for (const [key, value] of Object.entries(figmaColors)) {
-    if (semantic[key] !== undefined) continue;
-    if (legacyAliasKeys.has(key)) continue;
-    if (roleSourceKeys.has(key) && key !== roles[key]) continue;
-    extended[key] = value;
-  }
-
-  const aliases = {};
-  const aliasFromRoles = {};
-  for (const [role, figmaKey] of Object.entries(roles)) {
-    const sourceKey = String(figmaKey).replace(/^--/, '');
-    if (sourceKey !== role && figmaColors[sourceKey] !== undefined) {
-      aliasFromRoles[sourceKey] = role;
+    const value = figmaColors[sourceKey] ?? figmaColors[role];
+    if (value === undefined || value === '') {
+      throw new Error(`Unable to resolve semantic role: role=${role} source=${sourceKey}`);
     }
+    semantic[role] = value;
   }
 
-  const mergedLegacyAliases = { ...aliasFromRoles, ...legacyAliases };
-  for (const [legacyKey, semanticKey] of Object.entries(mergedLegacyAliases)) {
-    if (format === 'resolved') {
-      aliases[legacyKey] = semantic[semanticKey] ?? '';
-    } else {
-      aliases[legacyKey] = `var(--${semanticKey})`;
-    }
-  }
-
-  return { ...semantic, ...extended, ...aliases };
+  return semantic;
 }
 
 /**
- * Order theme keys: core semantic first, then extended, then legacy aliases.
+ * Order theme keys with core semantic roles first.
  */
-function orderThemeKeys(themeColors, { roles, legacyAliases }) {
+function orderThemeKeys(themeColors) {
   const ordered = {};
-  const roleSourceKeys = new Set(
-    Object.values(roles).map(key => String(key).replace(/^--/, '')),
-  );
-  const legacyKeys = new Set([
-    ...Object.keys(legacyAliases),
-    ...[...roleSourceKeys].filter(key => !roles[key] || roles[key] !== key),
-  ]);
 
   for (const key of SHADCN_SEMANTIC_KEYS) {
     if (themeColors[key] !== undefined) ordered[key] = themeColors[key];
@@ -260,12 +261,7 @@ function orderThemeKeys(themeColors, { roles, legacyAliases }) {
 
   for (const [key, value] of Object.entries(themeColors)) {
     if (ordered[key] !== undefined) continue;
-    if (legacyKeys.has(key)) continue;
     ordered[key] = value;
-  }
-
-  for (const key of legacyKeys) {
-    if (themeColors[key] !== undefined) ordered[key] = themeColors[key];
   }
 
   return ordered;
@@ -665,21 +661,6 @@ module.exports = {
 
   presets: nativewindPreset ? [nativewindPreset] : [],
 
-  safelist: [
-    {
-      pattern: /^text-(active|hover|pressed|disabled|inverse|inverse-muted|inverse-active)$/,
-    },
-    {
-      pattern: /^bg-(active|hover|pressed|disabled|disabled-muted|inverse|inverse-active|inverse-muted|transparent)$/,
-    },
-    {
-      pattern: /^border-(active|hover|pressed|disabled|inverse|inverse-active|inverse-muted|0|1)$/,
-    },
-    {
-      pattern: /^(bg|text|border)-(background|foreground|primary|primary-foreground|secondary|secondary-foreground|muted|muted-foreground|accent|accent-foreground|destructive|destructive-foreground|card|card-foreground|input|ring)$/,
-    },
-  ],
-
   theme: {
     // Responsive breakpoints (mobile-first)
     // Use consistent naming: tablet, desktop, desktop-hd
@@ -746,16 +727,13 @@ module.exports.gridConfig = ${formatConfigObject(grids)};
  * Includes both color and shadow CSS variables for theme-aware styling
  * Supports dual-mode: vars()-wrapped (default) or plain objects (optional)
  */
-function generateThemesFile(modeThemes, staticShadows, semanticShadowKeys, componentTokenConfig = {}) {
+function generateThemesFile(modeThemes, staticShadows, semanticShadowKeys, componentTokenConfig) {
   // Generate rawThemes object (plain color data without vars wrapper)
   const rawThemesCode = Object.entries(modeThemes)
     .map(([brand, modes]) => {
       const modesCode = Object.entries(modes)
         .map(([mode, colors]) => {
-          const themeColors = orderThemeKeys(
-            buildThemeColorMap(colors, componentTokenConfig, 'resolved'),
-            componentTokenConfig,
-          );
+          const themeColors = orderThemeKeys(buildThemeColorMap(colors, componentTokenConfig));
           // Add shadow CSS variables to the colors object
           const shadowVars = semanticShadowKeys
             .map(key => {
@@ -763,6 +741,9 @@ function generateThemesFile(modeThemes, staticShadows, semanticShadowKeys, compo
               const shadowValue = staticShadows[shadowKey] || '';
               return `      '--shadow-${key}': '${shadowValue}'`;
             })
+            .join(',\n');
+          const foundationVars = Object.entries(componentTokenConfig.foundationValues ?? {})
+            .map(([key, value]) => `      '--${key}': '${value}'`)
             .join(',\n');
 
           const colorVars = Object.entries(themeColors)
@@ -779,7 +760,9 @@ function generateThemesFile(modeThemes, staticShadows, semanticShadowKeys, compo
             })
             .join(',\n');
 
-          const allVars = [colorVars, colorChannelVars, shadowVars].filter(Boolean).join(',\n');
+          const allVars = [colorVars, colorChannelVars, shadowVars, foundationVars]
+            .filter(Boolean)
+            .join(',\n');
           return `    ${mode}: {\n${allVars}\n    }`;
         })
         .join(',\n');
@@ -831,7 +814,7 @@ ${rawThemesCode}
  * @param {boolean} useVars - Whether to wrap with vars() (default: true)
  * @returns {Object} Theme objects with or without vars() wrapping
  */
-function createThemes(rawThemesObj, useVars = true) {
+function createThemes(rawThemesObj, useVars) {
   const result = {};
   
   for (const [brand, colorSchemes] of Object.entries(rawThemesObj)) {
@@ -867,31 +850,17 @@ export const themes = createThemes(rawThemes, true);
  * const plainObjects = getThemes(false);
  * const varsWrapped = getThemes(true); // same as default themes export
  */
-export function getThemes(useVars = true) {
+export function getThemes(useVars) {
   return createThemes(rawThemes, useVars);
 }
 
 /**
- * Raw theme color data (without vars() wrapper) for direct access
- * Useful if you need the plain objects without vars() wrapping
- *
- * @example
- * import { rawThemes } from './themes';
- * const colors = rawThemes.default.light;
+ * Raw theme color data for direct access.
  */
 export { rawThemes };
 
 /**
  * Raw shadow values for runtime JavaScript access
- * Structure: rawShadows[brand][colorScheme][shadowLevel]
- * 
- * Use this for runtime shadow parsing in React Native.
- * The values are the actual CSS shadow strings (not wrapped in vars()).
- *
- * @example
- * import { rawShadows } from './themes';
- * const shadowString = rawShadows.default.light.md;
- * // Returns: '0px 8px 8px 0px rgba(0, 0, 0, 0.08)'
  */
 export const rawShadows = {
 ${rawShadowsCode}
@@ -908,6 +877,54 @@ export const brandNames = ${JSON.stringify(Object.keys(modeThemes))};
  * @typedef {'light' | 'dark'} ColorScheme
  */
 `;
+}
+
+function generateRawThemesData(modeThemes, staticShadows, semanticShadowKeys, componentTokenConfig) {
+  return Object.fromEntries(
+    Object.entries(modeThemes).map(([brand, modes]) => [
+      brand,
+      Object.fromEntries(
+        Object.entries(modes).map(([mode, colors]) => {
+          const themeColors = orderThemeKeys(buildThemeColorMap(colors, componentTokenConfig));
+          const colorVariables = Object.fromEntries(
+            Object.entries(themeColors).map(([key, value]) => [`--${key}`, value]),
+          );
+          const channelVariables = Object.fromEntries(
+            Object.entries(themeColors).flatMap(([key, value]) => {
+              const colorParts = parseColorParts(value);
+              if (!colorParts) return [];
+              return [
+                [`--${key}-rgb`, colorParts.channels],
+                [`--${key}-alpha`, colorParts.alpha],
+              ];
+            }),
+          );
+          const shadowVariables = Object.fromEntries(
+            semanticShadowKeys.map((key) => [
+              `--shadow-${key}`,
+              staticShadows[`shadow-${key}-${mode}`] || '',
+            ]),
+          );
+          const foundationVariables = Object.fromEntries(
+            Object.entries(componentTokenConfig.foundationValues).map(([key, value]) => [
+              `--${key}`,
+              value,
+            ]),
+          );
+
+          return [
+            mode,
+            {
+              ...colorVariables,
+              ...channelVariables,
+              ...shadowVariables,
+              ...foundationVariables,
+            },
+          ];
+        }),
+      ),
+    ]),
+  );
 }
 
 /**
@@ -1277,11 +1294,8 @@ function generateThemesCss(modeThemes, staticShadows, semanticShadowKeys, compon
   const lines = ['/**', ' * Web theme CSS variables', ' * Auto-generated by build.cjs — DO NOT EDIT MANUALLY', ' */', ''];
 
   const writeBlock = (selector, colors, mode) => {
-    const themeColors = orderThemeKeys(
-      buildThemeColorMap(colors, componentTokenConfig, 'css'),
-      componentTokenConfig,
-    );
-    const resolvedThemeColors = buildThemeColorMap(colors, componentTokenConfig, 'resolved');
+    const themeColors = orderThemeKeys(buildThemeColorMap(colors, componentTokenConfig));
+    const resolvedThemeColors = themeColors;
     const colorVars = Object.entries(themeColors)
       .map(([key, value]) => `  --${key}: ${value};`)
       .join('\n');
@@ -1303,11 +1317,15 @@ function generateThemesCss(modeThemes, staticShadows, semanticShadowKeys, compon
         return `  --shadow-${key}: ${shadowValue};`;
       })
       .join('\n');
+    const foundationVars = Object.entries(componentTokenConfig.foundationValues ?? {})
+      .map(([key, value]) => `  --${key}: ${value};`)
+      .join('\n');
 
     lines.push(`${selector} {`);
     lines.push(colorVars);
     if (colorChannelVars) lines.push(colorChannelVars);
     if (shadowVars) lines.push(shadowVars);
+    if (foundationVars) lines.push(foundationVars);
     lines.push('}', '');
   };
 
@@ -1359,6 +1377,12 @@ const theme = {
   extend: {
     ...rnConfig.theme.extend,
     colors: withAlphaAwareSemanticColors(rnConfig.theme.extend?.colors ?? {}),
+    borderRadius: {
+      ...rnConfig.theme.extend?.borderRadius,
+      lg: 'var(--radius)',
+      md: 'calc(var(--radius) - 2px)',
+      sm: 'calc(var(--radius) - 4px)',
+    },
   },
 };
 
@@ -1366,9 +1390,8 @@ module.exports = {
   darkMode: rnConfig.darkMode,
   safelist: rnConfig.safelist,
   content: [
-    path.join(__dirname, '../../../tooling/web/src/**/*.{ts,tsx}'),
-    path.join(__dirname, '../../../tooling/native/src/**/*.{ts,tsx}'),
-    path.join(__dirname, '../../ui/src/**/*.{ts,tsx}'),
+    path.join(__dirname, '../../../packages/web/src/**/*.{ts,tsx}'),
+    path.join(__dirname, '../../../packages/native/src/**/*.{ts,tsx}'),
     path.join(__dirname, '../../../apps/storybook-web/.storybook/**/*.{ts,tsx}'),
     path.join(__dirname, '../../../apps/storybook-web/stories/**/*.{ts,tsx,mdx}'),
     path.join(__dirname, '../../../apps/storybook-web/types/**/*.ts'),
@@ -1379,6 +1402,20 @@ module.exports = {
   theme,
   plugins: [],
   future: rnConfig.future,
+};
+`;
+}
+
+function generateTailwindPresetShim(configFile) {
+  return `/** @type {import('tailwindcss').Config} */
+const config = require('${configFile}');
+
+module.exports = {
+  darkMode: config.darkMode,
+  safelist: config.safelist,
+  theme: config.theme,
+  plugins: config.plugins,
+  future: config.future,
 };
 `;
 }
@@ -1537,6 +1574,10 @@ function build() {
   // Process mode tokens for semantic colors
   const modeThemes = {};
   const allSemanticKeys = new Set();
+  const componentTokenConfig = resolveFoundationValues(
+    loadComponentTokenConfig(),
+    dimensions,
+  );
 
   for (const [modeKey, modeTokens] of Object.entries(modes)) {
     if (typeof modeTokens !== 'object' || modeKey.startsWith('$')) continue;
@@ -1557,18 +1598,15 @@ function build() {
     const semanticColors = processModeTokens(modeTokens, primitives);
     modeThemes[brand][colorScheme] = semanticColors;
 
-    Object.keys(semanticColors).forEach(key => allSemanticKeys.add(key));
+    Object.keys(buildThemeColorMap(semanticColors, componentTokenConfig)).forEach(key => allSemanticKeys.add(key));
   }
 
   console.log(`   ✓ ${Object.keys(modeThemes).length} brands with ${allSemanticKeys.size} semantic colors`);
 
-  const componentTokenConfig = loadComponentTokenConfig();
   const componentRoleKeys = Object.keys(componentTokenConfig.roles);
   if (componentRoleKeys.length) {
     componentRoleKeys.forEach(key => allSemanticKeys.add(key));
-    Object.keys(componentTokenConfig.legacyAliases).forEach(key => allSemanticKeys.add(key));
     console.log(`   ✓ ${componentRoleKeys.length} semantic tokens (${componentRoleKeys.join(', ')})`);
-    console.log(`   ✓ ${Object.keys(componentTokenConfig.legacyAliases).length} legacy aliases (deprecated)`);
   }
 
   // Generate Tailwind config (with primitive typography values and semantic shadow CSS vars)
@@ -1589,11 +1627,25 @@ function build() {
   );
   console.log(`✅ Generated ${tailwindEsmPath} (ESM shim)`);
 
+  const nativePresetPath = path.join(outputDir, 'tailwind.preset.cjs');
+  fs.writeFileSync(nativePresetPath, generateTailwindPresetShim('./tailwind.config.cjs'));
+  console.log(`✅ Generated ${nativePresetPath}`);
+
   // Generate themes.js to data/ folder (includes shadow CSS variables and rawShadows)
   const themesFile = generateThemesFile(modeThemes, staticShadows, semanticShadowKeys, componentTokenConfig);
   const themesPath = path.join(dataDir, 'themes.js');
   fs.writeFileSync(themesPath, themesFile);
   console.log(`✅ Generated ${themesPath}`);
+
+  const rawThemesPath = path.join(dataDir, 'themes.raw.json');
+  const rawThemes = generateRawThemesData(
+    modeThemes,
+    staticShadows,
+    semanticShadowKeys,
+    componentTokenConfig,
+  );
+  fs.writeFileSync(rawThemesPath, `${JSON.stringify(rawThemes, null, 2)}\n`);
+  console.log(`✅ Generated ${rawThemesPath}`);
 
   // Generate typography.js to data/ folder (with all breakpoint values for LeoText component)
   const typographyFile = generateTypographyFile(
@@ -1629,24 +1681,9 @@ function build() {
  * Auto-generated by build.js - DO NOT EDIT MANUALLY
  */
 
-const tailwindConfig = require('../tailwind.config.cjs');
+const colors = ${JSON.stringify(allColorsForExport, null, 2)};
 
-// Extract colors from tailwind config (includes both primitive and semantic)
-const colors = tailwindConfig.theme?.extend?.colors || {};
-
-// Add convenience aliases for common brand colors
-const aliasedColors = {
-  ...colors,
-  'brand-red': colors['red-500'] || '#d52b1e',
-  'brand-blue': colors['dark-blue-500'] || '#212492',
-};
-
-module.exports = {
-  colors: aliasedColors,
-  // Also export semantic color keys for documentation
-  semanticColors: Object.keys(colors).filter(key => key.startsWith('bg-') || key.startsWith('text-') || key.startsWith('border-')),
-  primitiveColors: Object.keys(colors).filter(key => !key.startsWith('bg-') && !key.startsWith('text-') && !key.startsWith('border-')),
-};
+export { colors };
 `;
   const colorsPath = path.join(dataDir, 'colors.js');
   fs.writeFileSync(colorsPath, colorsFile);
@@ -1671,6 +1708,10 @@ module.exports = {
     "import config from './tailwind.config.cjs';\n\nexport default config;\n",
   );
   console.log(`✅ Generated ${webTailwindEsmPath} (ESM shim)`);
+
+  const webPresetPath = path.join(distDir, 'tailwind.preset.cjs');
+  fs.writeFileSync(webPresetPath, generateTailwindPresetShim('./tailwind.config.cjs'));
+  console.log(`✅ Generated ${webPresetPath}`);
 
   console.log('\n🎉 Build complete!\n');
 }
